@@ -1,0 +1,8 @@
+rawVapor<-read.table("VAPOR.csv", sep=";")
+vapor<-rawVapor[-2:-1,-1]
+rawRTUPB<-read.table("RTUPB-VBPPS.csv",sep=";")
+rtupb<-rawRTUPB[3:38,-1]
+vppbs<-rawRTUPB[39:70,-1]
+vppbs<-rawRTUPB[39:70,-1]
+vppbs<-rawRTUPB[39:70,-1]
+vppbs<-rawRTUPB[39:70,-1]
