@@ -1,0 +1,20 @@
+#####################################################################
+RAPPORT explication 
+#####################################################################
+
+Tableau RTUPB (pre-opératoire) 
+-------------------------------- 
+Suppression de certaines variables invariantes. 
+
+Evenement H.D
+Technique
+Transfusion PerO
+reprise au bloc
+
+(A argumenter) pour la sup. 
+--------------------------------
+Porteur de sonde 
+Résidu post mictionnel (ml)
+
+rtupbclean <- RTUPB[,-c(5,11,14,15,16,21)+1]
+	
