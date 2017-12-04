@@ -1,8 +1,10 @@
-rawVapor<-read.table("VAPOR.csv", sep=";")
-vapor<-rawVapor[-2:-1,-1]
-rawRTUPB<-read.table("RTUPB-VBPPS.csv",sep=";")
-rtupb<-rawRTUPB[3:38,-1]
-vppbs<-rawRTUPB[39:70,-1]
-vppbs<-rawRTUPB[39:70,-1]
-vppbs<-rawRTUPB[39:70,-1]
-vppbs<-rawRTUPB[39:70,-1]
+rawVapor<-read.csv("VAPOR.csv", header = TRUE, sep = ";", dec = ",", skip = 1)
+rawRTUPB<-read.table("RTUPB-VBPPS.csv", header=TRUE, sep=";", dec=".", skip = 1)
+# on supprime les colonnes a valeur constante
+# - VAPO RESECTION == N/A
+# - technique == 3
+vapor<-rawVapor[,-c(1,15)]
+vapor_preop<-vapor[,1:19]
+vapor_postop<-vapor[,20:40]
+rtupb<-rawRTUPB[1:36,-c(1,14,15,16,21)]
+vppbs<-rawRTUPB[37:68,-c(1,15)]
