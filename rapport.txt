@@ -4,10 +4,17 @@ RAPPORT explication
 
 Tableau RTUPB (pre-opératoire) 
 -------------------------------- 
-Suppression de certaines variables invariantes. 
 
-Evenement H.D
+pre traitement des données
+------------------------------------------
+chargement des données preopératoire 
+rawRTUPB<-read.table("bases/RTUPB.csv", header=TRUE, sep=";", dec=".", skip = 1)
+preRTUPB<-rawRTUPB[,0:21]
+
+Suppression de certaines dimentions invariantes. 
+
 Technique
+Evenement H.D
 Transfusion PerO
 reprise au bloc
 
@@ -16,5 +23,5 @@ reprise au bloc
 Porteur de sonde 
 Résidu post mictionnel (ml)
 
-rtupbclean <- RTUPB[,-c(5,11,14,15,16,21)+1]
+preRTUPBclean <- preRTUPB[,-c(1,5,11,14,15,16,21)] 
 	

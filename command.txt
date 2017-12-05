@@ -1,0 +1,4 @@
+CMD
+-------------------------------------------------
+1) frequency for a variable into data.frame
+table(lungdata$smoke)
