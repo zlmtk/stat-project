@@ -6,3 +6,6 @@ vppbs<-rawRTUPB[39:70,-1]
 vppbs<-rawRTUPB[39:70,-1]
 vppbs<-rawRTUPB[39:70,-1]
 vppbs<-rawRTUPB[39:70,-1]
+
+
+rawRTUPB<-read.table("RTUPB-VBPPS.csv",sep=";", dec=",", skip=1, header=TRUE, colClasses=c("factor",rep("numeric",20)))
