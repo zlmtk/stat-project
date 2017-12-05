@@ -22,6 +22,21 @@ reprise au bloc
 --------------------------------
 Porteur de sonde 
 Résidu post mictionnel (ml)
-
 preRTUPBclean <- preRTUPB[,-c(1,5,11,14,15,16,21)] 
+
+
+Creation d'un corrélogramme pour RTUPB
+---------------------------------------
+install.packages("corrplot")
+corpreRTUPBclean <-cor(preRTUPBclean) 
+corrplot::corrplot(corpreRTUPBclean) 
+avec des niveau de correlation
+corrplot::corrplot(corpreRTUPBclean, method ="pie", type ="upper") 
+
+
+Distribution des Ages des patients pour RTUPB 
+-----------------------------------------------
+hist(preRTUPBclean$Age..ans,br = c(55,60,65,70,75,80,85,90) , col="#ABC8E2", main = "Distribution de l'age des patients sur 7 classes" , xlab = "Ages") 
+
+
 	
