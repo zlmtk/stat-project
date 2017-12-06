@@ -31,12 +31,26 @@ install.packages("corrplot")
 corpreRTUPBclean <-cor(preRTUPBclean) 
 corrplot::corrplot(corpreRTUPBclean) 
 avec des niveau de correlation
-corrplot::corrplot(corpreRTUPBclean, method ="pie", type ="upper") 
+corrplot::corrplot(corpreRTUPBclean, method ="pie", type ="lower") 
 
 
 Distribution des Ages des patients pour RTUPB 
 -----------------------------------------------
 hist(preRTUPBclean$Age..ans,br = c(55,60,65,70,75,80,85,90) , col="#ABC8E2", main = "Distribution de l'age des patients sur 7 classes" , xlab = "Ages") 
+
+
+REcupération des données post opératoire RUTPB
+-------------------------------------------------
+postRTUPB<-rawRTUPB[,22:42]
+
+
+Distribution sur la variable IPSS (n mois) 
+-----------------------------------------------
+boxplot(postRTUPB$IPSS,postRTUPB$IPSS.1,postRTUPB$IPSS.2,postRTUPB$IPSS.3,postRTUPB$IPSS.4,postRTUPB$IPSS.5,postRTUPB$IPSS.6,  col="#ABC8E2", ) 
+names <-c("1 Mois", "3 Mois","6 Mois","9 Mois","12  Mois","15 Mois","18 Mois")
+ boxplot(postRTUPB$IPSS,postRTUPB$IPSS.1,postRTUPB$IPSS.2,postRTUPB$IPSS.3,postRTUPB$IPSS.4,postRTUPB$IPSS.5,postRTUPB$IPSS.6,  col="#ABC8E2",main = "Distribution pour la variable IPSS sur 18 mois", names = names ) 
+
+
 
 
 	

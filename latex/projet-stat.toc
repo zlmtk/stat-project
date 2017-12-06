@@ -1,0 +1,9 @@
+\select@language {french}
+\contentsline {section}{\numberline {1}Introduction}{3}
+\contentsline {section}{\numberline {2}Analyse déscriptive}{4}
+\contentsline {subsection}{\numberline {2.1}Données pré et post opératoires RTUPB}{4}
+\contentsline {subsection}{\numberline {2.2}Données pré et post opératoires VPPBS }{6}
+\contentsline {subsection}{\numberline {2.3}Données pré et post opératoires VAPOR}{7}
+\contentsline {section}{\numberline {3}Classification des profiles}{8}
+\contentsline {subsubsection}{\numberline {3.0.1}First subsubsection}{9}
+\contentsline {section}{\numberline {4}Second section}{9}
