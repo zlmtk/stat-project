@@ -44,11 +44,47 @@ REcupération des données post opératoire RUTPB
 postRTUPB<-rawRTUPB[,22:42]
 
 
-Distribution sur la variable IPSS (n mois) 
+Distribution sur la variable IPSS (18 mois) 
 -----------------------------------------------
 boxplot(postRTUPB$IPSS,postRTUPB$IPSS.1,postRTUPB$IPSS.2,postRTUPB$IPSS.3,postRTUPB$IPSS.4,postRTUPB$IPSS.5,postRTUPB$IPSS.6,  col="#ABC8E2", ) 
 names <-c("1 Mois", "3 Mois","6 Mois","9 Mois","12  Mois","15 Mois","18 Mois")
- boxplot(postRTUPB$IPSS,postRTUPB$IPSS.1,postRTUPB$IPSS.2,postRTUPB$IPSS.3,postRTUPB$IPSS.4,postRTUPB$IPSS.5,postRTUPB$IPSS.6,  col="#ABC8E2",main = "Distribution pour la variable IPSS sur 18 mois", names = names ) 
+boxplot(postRTUPB$IPSS,postRTUPB$IPSS.1,postRTUPB$IPSS.2,postRTUPB$IPSS.3,postRTUPB$IPSS.4,postRTUPB$IPSS.5,postRTUPB$IPSS.6,  col="#ABC8E2",main = "Distribution pour la variable IPSS sur 18 mois", names = names ) 
+boxplot(postRTUPB$QoL,postRTUPB$QoL.1,postRTUPB$QoL.2,postRTUPB$QoL.3,postRTUPB$QoL.4,postRTUPB$QoL.5,postRTUPB$QoL.6,  col="#ABC8E2",main = "Distribution pour la variable Qol sur 18 mois", names = names )
+boxplot(postRTUPB$Qmax..ml.s.,postRTUPB$Qmax..ml.s.1,postRTUPB$Qmax..ml.s.2,postRTUPB$Qmax..ml.s.3,postRTUPB$Qmax..ml.s.4,postRTUPB$Qmax..ml.s.5,postRTUPB$Qmax..ml.s.6,  col="#ABC8E2",main = "Distribution pour la variable QMax sur 18 mois", names = names ) 
+
+
+############################################################################
+#
+# CAH and PAM
+#
+############################################################################
+== RTUPB ==
+
+Certains individus sont dupliqués ? 
+preRTUPBcleanNoDuplicated<-preRTUPBclean[!duplicated(rawRTUPB):]
+
+---------------------------------------------------------------------------
+CAH 
+Reprise des données preRTUPBclean et création des distances (pair à pair) 
+
+preRTUPBEuclideanDist <- dist(preRTUPBclean)
+preRTUPBEuclideanDist.hclust <-hclust(preRTUPBEuclideanDist)
+plot(preRTUPBEuclideanDist.hclust)
+plot(preRTUPBEuclideanDist.hclust)
+Entourage des groupes sur k=4
+
+PAM 
+---------------------------------------------------------------------------
+preRTUPBclean.pam <-cluster::pam(preRTUPBclean,4)
+récupération de la moyenne des 
+preRTUPBclean.pam$silinfo$avg.width
+
+r<-NULL 
+for(va in 3:20){ cat(va) 
+    x<-cluster::pam(preRTUPBcleanNoDuplicated,va)
+result[va] <- x$silinfo$avg.width }
+
+
 
 
 

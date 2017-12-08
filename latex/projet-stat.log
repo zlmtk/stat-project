@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2017.10.28)  6 DEC 2017 22:36
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2017.10.28)  8 DEC 2017 00:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1068,12 +1068,12 @@ File: logo.png Graphic file (type QTm)
 <use  "logo.png" > [3
 
 ] (./includes/descriptives.tex
-File: ../Fig/rtupb-age-frequency.png Graphic file (type QTm)
+File: ../Fig/RTUPB/rtupb-age-frequency.png Graphic file (type QTm)
 
-<use  "../Fig/rtupb-age-frequency.png" >
-File: ../Fig/rtupb-matrice-cor-graph.png Graphic file (type QTm)
+<use  "../Fig/RTUPB/rtupb-age-frequency.png" >
+File: ../Fig/RTUPB/rtupb-matrice-cor-graph.png Graphic file (type QTm)
 
-<use  "../Fig/rtupb-matrice-cor-graph.png" >
+<use  "../Fig/RTUPB/rtupb-matrice-cor-graph.png" >
 
 Package Fancyhdr Warning: \headheight is too small (0.0pt): 
  Make it at least 14.49998pt.
@@ -1082,8 +1082,17 @@ Package Fancyhdr Warning: \headheight is too small (0.0pt):
 
 File: logo.png Graphic file (type QTm)
 <use  "logo.png" > [4]
-File: ../Fig/rtupb-boxplot-ipss.png Graphic file (type QTm)
- <use  "../Fig/rtupb-boxplot-ipss.png" >
+File: ../Fig/RTUPB//rtupb-boxplot-post-ipss.png Graphic file (type QTm)
+ <use  "../Fig/RTUPB//rtupb-boxplot-post-ipss.png" >
+File: ../Fig/RTUPB//rtupb-boxplot-post-Qol.png Graphic file (type QTm)
+
+<use  "../Fig/RTUPB//rtupb-boxplot-post-Qol.png" >
+File: ../Fig/RTUPB//rtupb-boxplot-post-Qmax.png Graphic file (type QTm)
+
+<use  "../Fig/RTUPB//rtupb-boxplot-post-Qmax.png" >
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 
 Package Fancyhdr Warning: \headheight is too small (0.0pt): 
  Make it at least 14.49998pt.
@@ -1107,7 +1116,13 @@ Package Fancyhdr Warning: \headheight is too small (0.0pt):
  This may cause the page layout to be inconsistent, however.
 
 File: logo.png Graphic file (type QTm)
-<use  "logo.png" > [7])
+<use  "logo.png" > [7]) (./includes/descriptives.tex
+File: ../Fig/RTUPB/rtupb-age-frequency.png Graphic file (type QTm)
+
+<use  "../Fig/RTUPB/rtupb-age-frequency.png" >
+File: ../Fig/RTUPB/rtupb-matrice-cor-graph.png Graphic file (type QTm)
+
+<use  "../Fig/RTUPB/rtupb-matrice-cor-graph.png" >
 
 Package Fancyhdr Warning: \headheight is too small (0.0pt): 
  Make it at least 14.49998pt.
@@ -1116,6 +1131,17 @@ Package Fancyhdr Warning: \headheight is too small (0.0pt):
 
 File: logo.png Graphic file (type QTm)
 <use  "logo.png" > [8]
+File: ../Fig/RTUPB//rtupb-boxplot-post-ipss.png Graphic file (type QTm)
+ <use  "../Fig/RTUPB//rtupb-boxplot-post-ipss.png" >
+File: ../Fig/RTUPB//rtupb-boxplot-post-Qol.png Graphic file (type QTm)
+
+<use  "../Fig/RTUPB//rtupb-boxplot-post-Qol.png" >
+File: ../Fig/RTUPB//rtupb-boxplot-post-Qmax.png Graphic file (type QTm)
+
+<use  "../Fig/RTUPB//rtupb-boxplot-post-Qmax.png" >
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 
 Package Fancyhdr Warning: \headheight is too small (0.0pt): 
  Make it at least 14.49998pt.
@@ -1123,18 +1149,42 @@ Package Fancyhdr Warning: \headheight is too small (0.0pt):
  This may cause the page layout to be inconsistent, however.
 
 File: logo.png Graphic file (type QTm)
-<use  "logo.png" > [9] (./projet-stat.aux)
+<use  "logo.png" > [9]
+
+Package Fancyhdr Warning: \headheight is too small (0.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+File: logo.png Graphic file (type QTm)
+<use  "logo.png" > [10]
+
+Package Fancyhdr Warning: \headheight is too small (0.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+File: logo.png Graphic file (type QTm)
+<use  "logo.png" > [11])
+
+Package Fancyhdr Warning: \headheight is too small (0.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+File: logo.png Graphic file (type QTm)
+<use  "logo.png" > [12] (./projet-stat.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 25704 strings out of 495495
- 532991 string characters out of 3185883
- 519056 words of memory out of 3000000
- 28440 multiletter control sequences out of 15000+200000
+ 25711 strings out of 495495
+ 533226 string characters out of 3185883
+ 519054 words of memory out of 3000000
+ 28442 multiletter control sequences out of 15000+200000
  15879 words of font info for 45 fonts, out of 3000000 for 9000
  198 hyphenation exceptions out of 8191
- 60i,15n,57p,616b,361s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 60i,15n,57p,616b,363s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on projet-stat.pdf (9 pages).
+Output written on projet-stat.pdf (12 pages).
