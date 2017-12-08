@@ -58,10 +58,10 @@ boxplot(postRTUPB$Qmax..ml.s.,postRTUPB$Qmax..ml.s.1,postRTUPB$Qmax..ml.s.2,post
 # CAH and PAM
 #
 ############################################################################
-== RTUPB ==
+== RTUPB ==================================================================
 
 Certains individus sont dupliqués ? 
-preRTUPBcleanNoDuplicated<-preRTUPBclean[!duplicated(rawRTUPB):]
+preRTUPBcleanNoDuplicated<-preRTUPBclean[!duplicated(preRTUPBclean),]
 
 ---------------------------------------------------------------------------
 CAH 
@@ -70,23 +70,35 @@ Reprise des données preRTUPBclean et création des distances (pair à pair)
 preRTUPBEuclideanDist <- dist(preRTUPBclean)
 preRTUPBEuclideanDist.hclust <-hclust(preRTUPBEuclideanDist)
 plot(preRTUPBEuclideanDist.hclust)
-plot(preRTUPBEuclideanDist.hclust)
-Entourage des groupes sur k=4
+Entourage des groupes sur k=9
+rect.hclust(preRTUPBEuclideanDist.hclust,9)
 
 PAM 
 ---------------------------------------------------------------------------
-preRTUPBclean.pam <-cluster::pam(preRTUPBclean,4)
+preRTUPBclean.pam <-cluster::pam(preRTUPBclean,9)
 récupération de la moyenne des 
 preRTUPBclean.pam$silinfo$avg.width
 
-r<-NULL 
-for(va in 3:20){ cat(va) 
-    x<-cluster::pam(preRTUPBcleanNoDuplicated,va)
-result[va] <- x$silinfo$avg.width }
+Recherche k optimum 
+
+Peut être joué avec 
+ preRTUPBclean et preRTUPBcleanNoDuplicated
+
+> result<-NULL 
+> for(va in 3:20){  
++     x<-cluster::pam(preRTUPBclean,va)
++     result[va] <- x$silinfo$avg.width } 
+> plot (result, xlab = "Nombre de clusters", ylab = "Moyenne silhouette")
+> abline (v=12,col="blue") 
 
 
 
 
+== VPBBS ==================================================================
+
+rawVPBBS<-read.table("bases/VBPPS.csv", header=TRUE, sep=";", dec=".", skip = 1)
+preVPBBSclean <- rawVPBBS[-c(1,5,11,14,15,16,18,20,21), )] 
 
 
-	
+
+
