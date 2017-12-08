@@ -1,14 +1,17 @@
 \select@language {french}
 \contentsline {section}{\numberline {1}Introduction}{3}
-\contentsline {section}{\numberline {2}Analyse déscriptive}{4}
+\contentsline {section}{\numberline {2}Analyse descriptive}{4}
 \contentsline {subsection}{\numberline {2.1}Données pré et post opératoires RTUPB}{4}
-\contentsline {subsubsection}{\numberline {2.1.1}Distribution des variables Post op. 18 mois}{5}
-\contentsline {subsection}{\numberline {2.2}Données pré et post opératoires VPPBS }{6}
-\contentsline {subsection}{\numberline {2.3}Données pré et post opératoires VAPOR}{7}
-\contentsline {section}{\numberline {3}Classification des profiles}{8}
-\contentsline {subsection}{\numberline {3.1}Données pré et post opératoires RTUPB}{8}
-\contentsline {subsubsection}{\numberline {3.1.1}Distribution des variables Post op. 18 mois}{9}
-\contentsline {subsection}{\numberline {3.2}Données pré et post opératoires VPPBS }{10}
-\contentsline {subsection}{\numberline {3.3}Données pré et post opératoires VAPOR}{11}
-\contentsline {subsubsection}{\numberline {3.3.1}First subsubsection}{12}
-\contentsline {section}{\numberline {4}Second section}{12}
+\contentsline {subsubsection}{\numberline {2.1.1}Distribution des variables Post op. 18 mois}{4}
+\contentsline {subsection}{\numberline {2.2}Données pré et post opératoires VPPBS }{5}
+\contentsline {subsection}{\numberline {2.3}Données pré et post opératoires VAPOR}{6}
+\contentsline {section}{\numberline {3}Classification des profils}{7}
+\contentsline {subsection}{\numberline {3.1}Profils types de patients à partir des données pré-opératoires RTUPBS-VPPBS}{7}
+\contentsline {subsubsection}{\numberline {3.1.1}PAM}{7}
+\contentsline {subsubsection}{\numberline {3.1.2}CAH}{7}
+\contentsline {subsection}{\numberline {3.2}Profils types de patients à partir des données post-opératoires}{7}
+\contentsline {subsubsection}{\numberline {3.2.1}PAM}{7}
+\contentsline {subsubsection}{\numberline {3.2.2}CAH}{7}
+\contentsline {subsection}{\numberline {3.3}Données pré et post opératoires VAPOR}{7}
+\contentsline {subsubsection}{\numberline {3.3.1}First subsubsection}{8}
+\contentsline {section}{\numberline {4}Second section}{8}
