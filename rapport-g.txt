@@ -1,4 +1,4 @@
-#####################################################################
+﻿#####################################################################
 #####################################################################
 # RTUBP
 #####################################################################
@@ -132,7 +132,7 @@ boxplot(postRTUPB[rownames(cluster1Pam.k9),15],postRTUPB[rownames(cluster2Pam.k9
 +         postRTUPB[rownames(cluster8Pam.k9),15],
 +         postRTUPB[rownames(cluster9Pam.k9),15]) 
 
-
+factoextra::fviz_cluster(preRTUPBclean.pam.k9, geom =c("point","text"), pointsize = 5, elipse=TRUE) 
 Mediodes(35 2 16 18 6 20 9 28 12)         
 
 
