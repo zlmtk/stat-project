@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2017.10.28)  9 DEC 2017 17:15
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2017.10.28)  10 DEC 2017 14:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1076,20 +1076,19 @@ Package Fancyhdr Warning: \headheight is too small (0.0pt):
 File: logo.png Graphic file (type QTm)
 <use  "logo.png" > [3
 
-] (./includes/descriptives.tex
+] (./includes/vue-generale.tex
 File: ../Fig/RTUPB/rtupb-age-frequency.png Graphic file (type QTm)
 
 <use  "../Fig/RTUPB/rtupb-age-frequency.png" >
-Overfull \hbox (23.02406pt too wide) in paragraph at lines 26--27
-[]\EU1/Lato-Regular.ttf(0)/m/n/12 Le corrélogramme suivant montre une les corré
-lations possible autour de la matrice symétrique. 
- []
+File: ../Fig/VPPBS/vppbs-age-frequency.png Graphic file (type QTm)
 
-File: ../Fig/RTUPB/rtupb-matrice-cor-graph.png Graphic file (type QTm)
-<use  "../Fig/RTUPB/rtupb-matrice-cor-graph.png" >
+<use  "../Fig/VPPBS/vppbs-age-frequency.png" >
+File: ../Fig/VAPOR/vapor-age-frequency.png Graphic file (type QTm)
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+<use  "../Fig/VAPOR/vapor-age-frequency.png" >) (./includes/correlations.tex
+File: ../Fig/RTUPB/rtupb-corr-matrice-pie.png Graphic file (type QTm)
 
+<use  "../Fig/RTUPB/rtupb-corr-matrice-pie.png" >
 
 Package Fancyhdr Warning: \headheight is too small (0.0pt): 
  Make it at least 14.49998pt.
@@ -1098,19 +1097,11 @@ Package Fancyhdr Warning: \headheight is too small (0.0pt):
 
 File: logo.png Graphic file (type QTm)
 <use  "logo.png" > [4]
-File: ../Fig/RTUPB//rtupb-boxplot-post-ipss.png Graphic file (type QTm)
- <use  "../Fig/RTUPB//rtupb-boxplot-post-ipss.png" >
-File: ../Fig/RTUPB//rtupb-boxplot-post-Qol.png Graphic file (type QTm)
+File: ../Fig/VPPBS/vppbs-corr-matrice-pie.png Graphic file (type QTm)
+ <use  "../Fig/VPPBS/vppbs-corr-matrice-pie.png" >
+File: ../Fig/VAPOR/vapor-corr-matrice-pie.png Graphic file (type QTm)
 
-<use  "../Fig/RTUPB//rtupb-boxplot-post-Qol.png" >
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-File: ../Fig/RTUPB//rtupb-boxplot-post-Qmax.png Graphic file (type QTm)
-<use  "../Fig/RTUPB//rtupb-boxplot-post-Qmax.png" >
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+<use  "../Fig/VAPOR/vapor-corr-matrice-pie.png" >
 
 Package Fancyhdr Warning: \headheight is too small (0.0pt): 
  Make it at least 14.49998pt.
@@ -1118,7 +1109,13 @@ Package Fancyhdr Warning: \headheight is too small (0.0pt):
  This may cause the page layout to be inconsistent, however.
 
 File: logo.png Graphic file (type QTm)
-<use  "logo.png" > [5]
+<use  "logo.png" > [5]) (./includes/descriptives-ipss.tex
+File: ../Fig/RTUPB/rtupb-boxplot-post-ipss.png Graphic file (type QTm)
+
+<use  "../Fig/RTUPB/rtupb-boxplot-post-ipss.png" >
+File: ../Fig/VPPBS/vppbs-boxplot-post-ipss.png Graphic file (type QTm)
+
+<use  "../Fig/VPPBS/vppbs-boxplot-post-ipss.png" >
 
 Package Fancyhdr Warning: \headheight is too small (0.0pt): 
  Make it at least 14.49998pt.
@@ -1127,8 +1124,12 @@ Package Fancyhdr Warning: \headheight is too small (0.0pt):
 
 File: logo.png Graphic file (type QTm)
 <use  "logo.png" > [6]
-File: ../Fig/VPPBS/vppbs-age-frequency.png Graphic file (type QTm)
- <use  "../Fig/VPPBS/vppbs-age-frequency.png" >
+File: ../Fig/VAPOR/vapor-boxplot-post-ipss.png Graphic file (type QTm)
+ <use  "../Fig/VAPOR/vapor-boxplot-post-ipss.png" >)
+(./includes/descriptives-qol.tex
+File: ../Fig/RTUPB/rtupb-boxplot-post-Qol.png Graphic file (type QTm)
+
+<use  "../Fig/RTUPB/rtupb-boxplot-post-Qol.png" >
 
 Package Fancyhdr Warning: \headheight is too small (0.0pt): 
  Make it at least 14.49998pt.
@@ -1136,7 +1137,12 @@ Package Fancyhdr Warning: \headheight is too small (0.0pt):
  This may cause the page layout to be inconsistent, however.
 
 File: logo.png Graphic file (type QTm)
-<use  "logo.png" > [7]) (./includes/profiles-preop.tex)
+<use  "logo.png" > [7]
+File: ../Fig/VPPBS/vppbs-boxplot-post-Qol.png Graphic file (type QTm)
+ <use  "../Fig/VPPBS/vppbs-boxplot-post-Qol.png" >
+File: ../Fig/VAPOR/vapor-boxplot-post-Qol.png Graphic file (type QTm)
+
+<use  "../Fig/VAPOR/vapor-boxplot-post-Qol.png" >
 
 Package Fancyhdr Warning: \headheight is too small (0.0pt): 
  Make it at least 14.49998pt.
@@ -1144,7 +1150,13 @@ Package Fancyhdr Warning: \headheight is too small (0.0pt):
  This may cause the page layout to be inconsistent, however.
 
 File: logo.png Graphic file (type QTm)
-<use  "logo.png" > [8]
+<use  "logo.png" > [8]) (./includes/descriptives-qmax.tex
+File: ../Fig/RTUPB/rtupb-boxplot-post-Qmax.png Graphic file (type QTm)
+
+<use  "../Fig/RTUPB/rtupb-boxplot-post-Qmax.png" >
+File: ../Fig/VPPBS/vppbs-boxplot-post-Qmax.png Graphic file (type QTm)
+
+<use  "../Fig/VPPBS/vppbs-boxplot-post-Qmax.png" >
 
 Package Fancyhdr Warning: \headheight is too small (0.0pt): 
  Make it at least 14.49998pt.
@@ -1152,18 +1164,36 @@ Package Fancyhdr Warning: \headheight is too small (0.0pt):
  This may cause the page layout to be inconsistent, however.
 
 File: logo.png Graphic file (type QTm)
-<use  "logo.png" > [9] (./projet-stat.aux)
+<use  "logo.png" > [9]
+File: ../Fig/VAPOR/vapor-boxplot-post-Qmax.png Graphic file (type QTm)
+ <use  "../Fig/VAPOR/vapor-boxplot-post-Qmax.png" >)
+
+Package Fancyhdr Warning: \headheight is too small (0.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+File: logo.png Graphic file (type QTm)
+<use  "logo.png" > [10]
+
+Package Fancyhdr Warning: \headheight is too small (0.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+File: logo.png Graphic file (type QTm)
+<use  "logo.png" > [11] (./projet-stat.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 25761 strings out of 495495
- 533945 string characters out of 3185883
+ 25785 strings out of 495495
+ 534718 string characters out of 3185883
  520608 words of memory out of 3000000
- 28486 multiletter control sequences out of 15000+200000
+ 28492 multiletter control sequences out of 15000+200000
  15879 words of font info for 45 fonts, out of 3000000 for 9000
  198 hyphenation exceptions out of 8191
- 60i,15n,57p,616b,363s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 60i,15n,57p,703b,392s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on projet-stat.pdf (9 pages).
+Output written on projet-stat.pdf (11 pages).
