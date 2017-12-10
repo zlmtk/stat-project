@@ -48,7 +48,7 @@ Distribution sur la variable IPSS (18 mois)
 -----------------------------------------------
 boxplot(postRTUPB$IPSS,postRTUPB$IPSS.1,postRTUPB$IPSS.2,postRTUPB$IPSS.3,postRTUPB$IPSS.4,postRTUPB$IPSS.5,postRTUPB$IPSS.6,  col="#ABC8E2", ) 
 names <-c("1 Mois", "3 Mois","6 Mois","9 Mois","12  Mois","15 Mois","18 Mois")
-boxplot(postRTUPB$IPSS,postRTUPB$IPSS.1,postRTUPB$IPSS.2,postRTUPB$IPSS.3,postRTUPB$IPSS.4,postRTUPB$IPSS.5,postRTUPB$IPSS.6,  col="#ABC8E2",main = "Distribution pour la variable IPSS sur 18 mois", names = names ) 
+boxplot(postRTUPB$IPSS,postRTUPB$IPSS.1,postRTUPB$IPSS.2,postRTUPB$IPSS.3,postRTUPB$IPSS.4,postRTUPB$IPSS.5,postRTUPB$IPSS.6,  col="#ABC8E2",main = "Distribution pour la variable IPSS sur 18 mois (RTUPB)", names = names, ylim = c(0, 15) ) 
 boxplot(postRTUPB$QoL,postRTUPB$QoL.1,postRTUPB$QoL.2,postRTUPB$QoL.3,postRTUPB$QoL.4,postRTUPB$QoL.5,postRTUPB$QoL.6,  col="#ABC8E2",main = "Distribution pour la variable Qol sur 18 mois", names = names )
 boxplot(postRTUPB$Qmax..ml.s.,postRTUPB$Qmax..ml.s.1,postRTUPB$Qmax..ml.s.2,postRTUPB$Qmax..ml.s.3,postRTUPB$Qmax..ml.s.4,postRTUPB$Qmax..ml.s.5,postRTUPB$Qmax..ml.s.6,  col="#ABC8E2",main = "Distribution pour la variable QMax sur 18 mois", names = names ) 
 
@@ -93,7 +93,7 @@ Peut être joué avec
 
 #####################################################################
 #####################################################################
-# RTUBP
+# VPPBS
 #####################################################################
 #####################################################################
 
@@ -103,6 +103,7 @@ preVPBBSclean <- preVPBBS[,-c(1,5,11,14,15,16,18,20,21)]
 corpreVPPBSclean <-cor(preVPPBSclean) 
 corrplot::corrplot(corpreVPPBSclean) 
 postVPBBS<-rawVPBBS[,22:42]
+hist(preVPBBSclean$Age..ans,br = c(55,60,65,70,75,80,85,90) , col="#ABC8E2", main = "Distribution de l'age des patients sur 7 classes" , xlab = "Ages") 
 
 
 v<-postVPBBS
@@ -119,6 +120,7 @@ boxplot(v$Qmax..ml.s.,v$Qmax.ml.s.,v$Qmax..ml.s..1,v$Qmax..ml.s..2 ,v$Qmax..ml.s
 rawVAPOR<-read.table("bases/VAPOR.csv", header=TRUE, sep=";", dec=".", skip = 1)
 preVAPOR <- rawVAPOR[,0:21] 
 preVAPORclean <- preVAPOR[,-c(1,5,11,15)] 
+hist(preVAPORclean$Age..ans,br = c(55,60,65,70,75,80,85,90) , col="#ABC8E2", main = "Distribution de l'age des patients sur 7 classes" , xlab = "Ages") 
 
 corpreVAPORclean <-cor(preVAPORclean) 
 corrplot::corrplot(corpreVAPORclean) 
