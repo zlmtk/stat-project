@@ -83,12 +83,57 @@ Peut être joué avec
  preRTUPBclean et preRTUPBcleanNoDuplicated
 
 > result<-NULL 
-> for(va in 3:20){  
-+     x<-cluster::pam(preRTUPBclean,va)
+> for(va in 2:20){  
++     x<-cluster::pam(preRTUPBcleanNoDuplicated,va)
 +     result[va] <- x$silinfo$avg.width } 
 > plot (result, xlab = "Nombre de clusters", ylab = "Moyenne silhouette")
 > abline (v=12,col="blue") 
 
+
+Comme hypothese nous avons k=2
+----------------------------------------------------------------------------
+preRTUPBclean.pam.k2<-cluster::pam(preRTUPBcleanNoDuplicated,2)
+On map la tableau avec pour chaque rows un numeros de cluster trouvé dans PAM 
+clusterResultPam.k2 <- cbind(preRTUPBcleanNoDuplicated, clusterNum = preRTUPBclean.pam.k2$clustering)
+Nous avons 2 clusters 
+cluster1Pam.k2 <- subset(clusterResultPam.k2,clusterNum == 1 )
+cluster2Pam.k2 <- subset(clusterResultPam.k2,clusterNum == 2 )
+boxplot(postRTUPB[rownames(cluster1Pam.k2),15],postRTUPB[rownames(cluster2Pam.k2),15])
+
+Mediodes(14,2)    
+
+
+Comme hypothese nous avons k=9
+----------------------------------------------------------------------------
+preRTUPBclean.pam.k9<-cluster::pam(preRTUPBcleanNoDuplicated,9)
+On map la tableau avec pour chaque rows un numeros de cluster trouvé dans PAM 
+clusterResultPam.k9 <- cbind(preRTUPBcleanNoDuplicated, clusterNum = preRTUPBclean.pam.k9$clustering)
+Nous avons 9 clusters 
+cluster1Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 1 )
+cluster2Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 2 )
+cluster3Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 3 )
+cluster4Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 4 )
+cluster5Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 5 )
+cluster6Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 6 )
+cluster7Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 7 )
+cluster8Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 8 )
+cluster9Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 9 )
+
+boxplot(postRTUPB[rownames(cluster1Pam.k9),15],postRTUPB[rownames(cluster2Pam.k9),15],postRTUPB[rownames(cluster3Pam.k9),15],postRTUPB[rownames(cluster4Pam.k9),15],postRTUPB[rownames(cluster5Pam.k9),15] ),postRTUPB[rownames(cluster6Pam.k9),15],postRTUPB[rownames(cluster7Pam.k9),15],postRTUPB[rownames(cluster8Pam.k9),15]),postRTUPB[rownames(cluster9Pam.k9),15])
+
+
+> boxplot(postRTUPB[rownames(cluster1Pam.k9),15],
++         postRTUPB[rownames(cluster2Pam.k9),15],
++         postRTUPB[rownames(cluster3Pam.k9),15],
++         postRTUPB[rownames(cluster4Pam.k9),15],
++         postRTUPB[rownames(cluster5Pam.k9),15],
++         postRTUPB[rownames(cluster6Pam.k9),15],
++         postRTUPB[rownames(cluster7Pam.k9),15],
++         postRTUPB[rownames(cluster8Pam.k9),15],
++         postRTUPB[rownames(cluster9Pam.k9),15]) 
+
+
+Mediodes(35 2 16 18 6 20 9 28 12)         
 
 
 #####################################################################
