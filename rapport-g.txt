@@ -81,7 +81,6 @@ Recherche k optimum
 
 Peut être joué avec 
  preRTUPBclean et preRTUPBcleanNoDuplicated
-
 > result<-NULL 
 > for(va in 2:20){  
 +     x<-cluster::pam(preRTUPBcleanNoDuplicated,va)
@@ -155,6 +154,30 @@ v<-postVPBBS
 boxplot(v$IPSS,v$IPSS.1,v$IPSS.2,v$IPSS.3 ,v$IPSS.4 ,v$IPSS.5,v$IPSS.6 , col="#ABC8E2",main = "Distribution pour la variable IPSS sur 18 mois", names = names ) 
 boxplot(v$QoL,v$QoL.1,v$QoL.2,v$QoL.3 ,v$QoL.4 ,v$QoL.5,v$QoL.6 , col="#ABC8E2",main = "Distribution pour la variable Qol sur 18 mois", names = names ) 
 boxplot(v$Qmax..ml.s.,v$Qmax.ml.s.,v$Qmax..ml.s..1,v$Qmax..ml.s..2 ,v$Qmax..ml.s..3 ,v$Qmax..ml.s..4,v$Qmax..ml.s..5 , col="#ABC8E2",main = "Distribution pour la variable Qmax sur 18 mois", names = names ) 
+
+############################################################################
+# CAH and PAM
+############################################################################
+
+preVPBBSCleanNoDuplicated<-preVPBBSClean[!duplicated(preVPBBSClean),]
+
+preVPBBSEuclideanDist <- dist(preVPBBScleanNoDuplicated)
+preVPBBSEuclideanDist.hclust <-hclust(preVPBBSEuclideanDist)
+plot(preVPBBSEuclideanDist.hclust)
+rect.hclust(preRTUPBEuclideanDist.hclust,11)
+
+Peut être joué avec 
+preVPBBSClean[ et preVPBBSCleanNoDuplicated
+> result<-NULL 
+ result<-NULL 
+ for(vx in 2:19){ cat(vx) 
+         x<-cluster::pam(preVPBBScleanNoDuplicated,vx)
+         result[vx] <- x$silinfo$avg.width } 
+
+ plot (result, xlab = "Nombre de clusters", ylab = "Moyenne silhouette")
+ abline (v=12,col="blue") 
+
+
 
 #####################################################################
 #####################################################################
