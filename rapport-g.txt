@@ -61,15 +61,6 @@ boxplot(postRTUPB$Qmax..ml.s.,postRTUPB$Qmax..ml.s.1,postRTUPB$Qmax..ml.s.2,post
 Certains individus sont dupliqués ? 
 preRTUPBcleanNoDuplicated<-preRTUPBclean[!duplicated(preRTUPBclean),]
 
----------------------------------------------------------------------------
-CAH 
-Reprise des données preRTUPBclean et création des distances (pair à pair) 
-
-preRTUPBEuclideanDist <- dist(preRTUPBclean)
-preRTUPBEuclideanDist.hclust <-hclust(preRTUPBEuclideanDist)
-plot(preRTUPBEuclideanDist.hclust)
-Entourage des groupes sur k=9
-rect.hclust(preRTUPBEuclideanDist.hclust,9)
 
 PAM 
 ---------------------------------------------------------------------------
@@ -129,7 +120,15 @@ cluster12Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 12 )
 	postRTUPB[rownames(cluster11Pam.k12),15], 
         postRTUPB[rownames(cluster12Pam.k12),15], col="#ABC8E2")
 
+---------------------------------------------------------------------------
+CAH 
+Reprise des données preRTUPBclean et création des distances (pair à pair) 
 
+preRTUPBEuclideanDist <- dist(preRTUPBclean)
+preRTUPBEuclideanDist.hclust <-hclust(preRTUPBEuclideanDist)
+plot(preRTUPBEuclideanDist.hclust)
+Entourage des groupes sur k=12
+rect.hclust(preRTUPBEuclideanDist.hclust,12)
 
 
 #####################################################################
