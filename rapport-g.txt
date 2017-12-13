@@ -81,58 +81,55 @@ Recherche k optimum
 
 Peut être joué avec 
  preRTUPBclean et preRTUPBcleanNoDuplicated
-> result<-NULL 
-> for(va in 2:20){  
-+     x<-cluster::pam(preRTUPBcleanNoDuplicated,va)
-+     result[va] <- x$silinfo$avg.width } 
-> plot (result, xlab = "Nombre de clusters", ylab = "Moyenne silhouette")
-> abline (v=12,col="blue") 
+result<-NULL 
+for(va in 2:20){  
+    x<-cluster::pam(preRTUPBclean,va)
+    result[va] <- x$silinfo$avg.width } 
+plot (result, xlab = "Nombre de clusters", ylab = "Moyenne silhouette")
+abline (v=12,col="blue") 
 
 
-Comme hypothese nous avons k=2
+Comme hypothese nous avons k=12 pour rtpb preop 
 ----------------------------------------------------------------------------
-preRTUPBclean.pam.k2<-cluster::pam(preRTUPBcleanNoDuplicated,2)
-On map la tableau avec pour chaque rows un numeros de cluster trouvé dans PAM 
-clusterResultPam.k2 <- cbind(preRTUPBcleanNoDuplicated, clusterNum = preRTUPBclean.pam.k2$clustering)
-Nous avons 2 clusters 
-cluster1Pam.k2 <- subset(clusterResultPam.k2,clusterNum == 1 )
-cluster2Pam.k2 <- subset(clusterResultPam.k2,clusterNum == 2 )
-boxplot(postRTUPB[rownames(cluster1Pam.k2),15],postRTUPB[rownames(cluster2Pam.k2),15])
 
-Mediodes(14,2)    
-
-
-Comme hypothese nous avons k=9
-----------------------------------------------------------------------------
-preRTUPBclean.pam.k9<-cluster::pam(preRTUPBcleanNoDuplicated,9)
-On map la tableau avec pour chaque rows un numeros de cluster trouvé dans PAM 
-clusterResultPam.k9 <- cbind(preRTUPBcleanNoDuplicated, clusterNum = preRTUPBclean.pam.k9$clustering)
-Nous avons 9 clusters 
-cluster1Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 1 )
-cluster2Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 2 )
-cluster3Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 3 )
-cluster4Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 4 )
-cluster5Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 5 )
-cluster6Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 6 )
-cluster7Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 7 )
-cluster8Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 8 )
-cluster9Pam.k9 <- subset(clusterResultPam.k9,clusterNum == 9 )
-
-boxplot(postRTUPB[rownames(cluster1Pam.k9),15],postRTUPB[rownames(cluster2Pam.k9),15],postRTUPB[rownames(cluster3Pam.k9),15],postRTUPB[rownames(cluster4Pam.k9),15],postRTUPB[rownames(cluster5Pam.k9),15] ),postRTUPB[rownames(cluster6Pam.k9),15],postRTUPB[rownames(cluster7Pam.k9),15],postRTUPB[rownames(cluster8Pam.k9),15]),postRTUPB[rownames(cluster9Pam.k9),15])
-
-
-> boxplot(postRTUPB[rownames(cluster1Pam.k9),15],
-+         postRTUPB[rownames(cluster2Pam.k9),15],
-+         postRTUPB[rownames(cluster3Pam.k9),15],
-+         postRTUPB[rownames(cluster4Pam.k9),15],
-+         postRTUPB[rownames(cluster5Pam.k9),15],
-+         postRTUPB[rownames(cluster6Pam.k9),15],
-+         postRTUPB[rownames(cluster7Pam.k9),15],
-+         postRTUPB[rownames(cluster8Pam.k9),15],
-+         postRTUPB[rownames(cluster9Pam.k9),15]) 
+preRTUPBclean.pam.k12<-cluster::pam(preRTUPBclean,12)
 
 factoextra::fviz_cluster(preRTUPBclean.pam.k9, geom =c("point","text"), pointsize = 5, elipse=TRUE) 
-Mediodes(35 2 16 18 6 20 9 28 12)         
+Medoids( 1,2,3,4,5,6,7,8,9,10,11,12 ) 
+
+
+
+On map la tableau avec pour chaque rows un numeros de cluster trouvé dans PAM 
+clusterResultPam.k12 <- cbind(preRTUPBclean, clusterNum = preRTUPBclean.pam.k12$clustering) 
+Nous avons 12 clusters 
+cluster1Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 1 )
+cluster2Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 2 )
+cluster3Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 3 )
+cluster4Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 4 )
+cluster5Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 5 )
+cluster6Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 6 )
+cluster7Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 7 )
+cluster8Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 8 )
+cluster9Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 9 )
+cluster10Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 10 )
+cluster11Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 11 )
+cluster12Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 12 )
+
+
+> boxplot(postRTUPB[rownames(cluster1Pam.k12),15],
+         postRTUPB[rownames(cluster2Pam.k12),15],
+         postRTUPB[rownames(cluster3Pam.k12),15],
+        postRTUPB[rownames(cluster4Pam.k12),15],
+        postRTUPB[rownames(cluster5Pam.k12),15],
+        postRTUPB[rownames(cluster6Pam.k12),15],
+        postRTUPB[rownames(cluster7Pam.k12),15],
+        postRTUPB[rownames(cluster8Pam.k12),15],
+        postRTUPB[rownames(cluster9Pam.k12),15],
+        postRTUPB[rownames(cluster10Pam.k12),15], 
+	postRTUPB[rownames(cluster11Pam.k12),15], 
+        postRTUPB[rownames(cluster12Pam.k12),15], col="#ABC8E2")
+
+
 
 
 #####################################################################
@@ -200,4 +197,8 @@ boxplot(postVAPOR$QoL,postVAPOR$QoL.1,postVAPOR$QoL.2,postVAPOR$QoL.3 ,postVAPOR
 boxplot(postVAPOR$Qmax..ml.s.,postVAPOR$Qmax.ml.s.,postVAPOR$Qmax..ml.s..1,postVAPOR$Qmax..ml.s..2 ,postVAPOR$Qmax..ml.s..3 ,postVAPOR$Qmax..ml.s..4,postVAPOR$Qmax..ml.s..5 , col="#ABC8E2",main = "Distribution pour la variable Qmax sur 18 mois", names = names ) 
 
 
+
+
+USEFULL 
+remove(list=ls(pattern="cluster*Pam*"))
 
