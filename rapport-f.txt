@@ -13,6 +13,9 @@ duplicated(postRTUPB)
 sil<-numeric(20)
 for(k in 2:20) { sil[[k]]<-cluster::pam(postRTUPB,k)$silinfo$avg.width }
 plot(2:20, sil[2:20], main = "postRTUPB clustering using PAM", xlab = "#clusters", ylab="sil.avg.width", sub="from 2 to 20")
+abline(v = 2, col = "red")
+abline(v = 3, col = "red")
+abline(v = 13, col = "blue")
 
 # k=2 - vérification 
 plot(cluster::pam(postRTUPB, 2))
@@ -26,7 +29,7 @@ respam13<-cluster::pam(postRTUPB, 13)
 # ******************************************
 # CAH
 # ******************************************
-rescah<-hclust(dist(postRTUPB))
+rescah<-hclust(dist(postRTUPB), method="ward")
 plot(hclust(dist(postRTUPB)), hang=-1)
 rect.hclust(rescah, 13)
 
@@ -58,17 +61,21 @@ for (m in 1:13) {
 # PAM
 # ******************************************
 sil<-numeric(20)
-for(k in 2:20) { sil[[k]]<-pam(postVBPPS,k)$silinfo$avg.width }
-plot(2:20, sil[2:20], main = "postVBPPS clustering using PAM", xlab = "#clusters", ylab="sil.avg.width", sub="from 2 to 20")
+for(k in 2:20) { sil[[k]]<-cluster::pam(postVPPBS,k)$silinfo$avg.width }
+plot(2:20, sil[2:20], main = "postVPPBS clustering using PAM", xlab = "#clusters", ylab="sil.avg.width", sub="from 2 to 20")
+abline(v = 4, col = "red")
+abline(v = 12, col = "blue")
 
-respam10 = pam(VBPPSpost, 10)
+plot(cluster::pam(postVPPBS, 4))
+plot(cluster::pam(postVPPBS, 12))
+respam12 = cluster::pam(postVPPBS, 12)
 
 # ******************************************
 # CAH
 # ******************************************
-rescah<-hclust(dist(postVPPBS))
+rescah<-hclust(dist(postVPPBS), method="ward")
 plot(hclust(dist(postVPPBS)), hang=-1)
-rect.hclust(rescah, 10)
+rect.hclust(rescah, 12)
 
 # ******************************************
 # Profils de guérison
@@ -76,21 +83,24 @@ rect.hclust(rescah, 10)
 IPSSmedoids<-NULL
 QoLmedoids<-NULL
 QMaxmedoids<-NULL
-for (k in 1:10) { 
+for (k in 1:12) { 
   IPSSmedoids<-rbind(IPSSmedoids, VBPPSpost[respam10$medoids[k],c(1,4,7,10,13,16,19)])
   QoLmedoids<-rbind(QoLmedoids, VBPPSpost[respam10$medoids[k],c(2,5,8,11,14,17,20)])
   QMaxmedoids<-rbind(QMaxmedoids, VBPPSpost[respam10$medoids[k],c(3,6,9,12,15,18,21)])
 }
 par(mfrow=c(1,3))
-for (m in 1:10) {
- plot( x <- c(1:7), y <- IPSSmedoids[m, x], type = "l", col= m, main = paste("IPSS for VPPBS profile #", as.character(m)))
- plot( x <- c(1:7), y <- QoLmedoids[m, x], type = "l", col= m, main = paste("QoL for VPPBS profile #", as.character(m)))
- plot( x <- c(1:7), y <- QMaxmedoids[m, x], type = "l", col= m, main = paste("QMax for VPPBS profile #", as.character(m))) 
+for (m in 1:12) {
+ plot( x <- c(1:7), y <- IPSSmedoids[m, x], type = "l", col= m, xaxt = "n", xlab="# months", main = paste("IPSS for VPPBS profile #", as.character(m)))
+ axis(1, at=1:7, labels=c(1,3,6,9,12,15,18))
+ plot( x <- c(1:7), y <- QoLmedoids[m, x], type = "l", col= m, xaxt = "n", xlab="# months", main = paste("QoL for VPPBS profile #", as.character(m)))
+ axis(1, at=1:7, labels=c(1,3,6,9,12,15,18))
+ plot( x <- c(1:7), y <- QMaxmedoids[m, x], type = "l", col= m, xaxt = "n", xlab="# months", main = paste("QMax for VPPBS profile #", as.character(m))) 
+ axis(1, at=1:7, labels=c(1,3,6,9,12,15,18))
 }
 
 
-Tableau VAPOR (post-opératoire) 
--------------------------------- 
+# Tableau VAPOR (post-opératoire) 
+# -------------------------------- 
 library(readxl)
 rawVAPOR <- read_excel("VAPOR.xlsx", col_types = c("skip", 
     "numeric", "logical", "numeric", "logical", 
@@ -105,46 +115,46 @@ rawVAPOR <- read_excel("VAPOR.xlsx", col_types = c("skip",
     "numeric", "numeric", "numeric", "numeric", 
     "numeric"), skip = 1)
 View(rawVAPOR)
-VAPORpre<-rawVAPOR[,c(1:20)]
-VAPORpre_clean<-rawVAPOR[!duplicated(rawVAPOR),-c(10,11,12,14)]
+preVAPOR<-rawVAPOR[,c(1:20)]
+preVAPOR_clean<-rawVAPOR[!duplicated(rawVAPOR),-c(10,11,12,14)]
 
-******************************************
-PAM
-******************************************
+# ******************************************
+# PAM
+# ******************************************
 sil<-numeric(20)
-for(k in 2:20) { sil[[k]]<-pam(VAPORpre_clean,k)$silinfo$avg.width }
-plot(2:20, sil[2:20], main = "VAPORpre clustering using PAM", xlab = "#clusters", ylab="sil.avg.width", sub="from 2 to 20")
+for(k in 2:20) { sil[[k]]<-cluster::pam(preVAPOR_clean,k)$silinfo$avg.width }
+plot(2:20, sil[2:20], main = "preVAPOR clustering using PAM", xlab = "#clusters", ylab="sil.avg.width", sub="from 2 to 20")
 
-******************************************
-Classification supervisée RTUPB-VPPBS
-******************************************
-******************************************
-IPSS
-******************************************
-******************************************
-QoL
-******************************************
-******************************************
-Qmax
-******************************************
-******************************************
-Classification supervisée VAPOR
-******************************************
-******************************************
-IPSS
-******************************************
-fitIPSS<-rpart(IPSS__4 ~ ., data = rawVAPOR[,c(01:20,33)])
+# ******************************************
+# Classification supervisée RTUPB-VPPBS
+# ******************************************
+# ******************************************
+# IPSS
+# ******************************************
+# ******************************************
+# QoL
+# ******************************************
+# ******************************************
+# Qmax
+# ******************************************
+# ******************************************
+# Classification supervisée VAPOR
+# ******************************************
+# ******************************************
+# IPSS
+# ******************************************
+fitIPSS<-rpart::rpart(IPSS__4 ~ ., data = rawVAPOR[,c(01:20,33)])
 plot(fitIPSS, main="VAPOR: prédiction IPSS à 12 mois")
 text(fitIPSS,use.n=TRUE)
-******************************************
-QoL
-******************************************
-fitQoL<-rpart(QoL__4 ~ ., data = rawVAPOR[,c(01:20,34)])
+# ******************************************
+# QoL
+# ******************************************
+fitQoL<-rpart::rpart(QoL__4 ~ ., data = rawVAPOR[,c(01:20,34)])
 plot(fitQoL, main="VAPOR: prédiction QoL à 12 mois")
 text(fitQoL,use.n=TRUE)
-******************************************
-Qmax
-******************************************
-fitQmax<-rpart(`Qmax (ml/s)__3` ~ ., data = rawVAPOR[,c(01:20,35)])
+# ******************************************
+# Qmax
+# ******************************************
+fitQmax<-rpart::rpart(`Qmax (ml/s)__3` ~ ., data = rawVAPOR[,c(01:20,35)])
 plot(fitQmax, main="VAPOR: prédiction Qmax à 12 mois")
 text(fitQmax,use.n=TRUE)
