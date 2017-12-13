@@ -206,6 +206,13 @@ boxplot(postVPBBS[rownames(cluster1Pam.k12),15],
 	postVPBBS[rownames(cluster11Pam.k12),15], 
         postVPBBS[rownames(cluster12Pam.k12),15], col="#ABC8E2")
 
+
+preVPBBSEuclideanDist <- dist(preVPBBSclean)
+preVPBBSEuclideanDist.hclust <-hclust(preVPBBSEuclideanDist)
+plot(preVPBBSEuclideanDist.hclust)
+rect.hclust(preVPBBSEuclideanDist.hclust,12)
+
+
 #####################################################################
 #####################################################################
 # VAPOR
