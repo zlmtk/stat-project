@@ -118,7 +118,7 @@ cluster12Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 12 )
         postRTUPB[rownames(cluster9Pam.k12),15],
         postRTUPB[rownames(cluster10Pam.k12),15], 
 	postRTUPB[rownames(cluster11Pam.k12),15], 
-        postRTUPB[rownames(cluster12Pam.k12),15], col="#ABC8E2")
+        postRTUPB[rownames(cluster12Pam.k12),15], col="#ABC8E2", ylim = c(0,50), names= c('1','2','3','4','5','6','7','8','9','10','11','12'))
 
 ---------------------------------------------------------------------------
 CAH 
@@ -204,7 +204,7 @@ boxplot(postVPBBS[rownames(cluster1Pam.k12),15],
         postVPBBS[rownames(cluster9Pam.k12),15],
         postVPBBS[rownames(cluster10Pam.k12),15], 
 	postVPBBS[rownames(cluster11Pam.k12),15], 
-        postVPBBS[rownames(cluster12Pam.k12),15], col="#ABC8E2")
+        postVPBBS[rownames(cluster12Pam.k12),15], col="#ABC8E2", ylim = c(0,50), names= c('1','2','3','4','5','6','7','8','9','10','11','12') )
 
 
 preVPBBSEuclideanDist <- dist(preVPBBSclean)
