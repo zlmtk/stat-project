@@ -234,6 +234,55 @@ boxplot(postVAPOR$QoL,postVAPOR$QoL.1,postVAPOR$QoL.2,postVAPOR$QoL.3 ,postVAPOR
 boxplot(postVAPOR$Qmax..ml.s.,postVAPOR$Qmax.ml.s.,postVAPOR$Qmax..ml.s..1,postVAPOR$Qmax..ml.s..2 ,postVAPOR$Qmax..ml.s..3 ,postVAPOR$Qmax..ml.s..4,postVAPOR$Qmax..ml.s..5 , col="#ABC8E2",main = "Distribution pour la variable Qmax sur 18 mois", names = names ) 
 
 
+PAM 
+---------------------------------------------------------------------------
+ result<-NULL 
+ for(vx in 2:19){ 
+         x<-cluster::pam(preVAPORclean,vx)
+         result[vx] <- x$silinfo$avg.width } 
+
+ plot (result, xlab = "Nombre de clusters", ylab = "Moyenne silhouette")
+ abline (v=12,col="blue") 
+
+
+
+
+Comme hypothese nous avons k=17 pour rtpb preop 
+----------------------------------------------------------------------------
+preVPBBSclean.pam.k12<-cluster::pam(preVPBBSclean,12)
+factoextra::fviz_cluster(preVPBBSclean.pam.k12, geom =c("point","text"), pointsize = 5, elipse=TRUE) 
+Medoids (27,2,29,4,31,32,21,22,23,24,25,26) 
+
+clusterResultPam.k12 <- cbind(preVPBBSclean, clusterNum = preVPBBSclean.pam.k12$clustering) 
+cluster1Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 1 )
+cluster2Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 2 )
+cluster3Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 3 )
+cluster4Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 4 )
+cluster5Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 5 )
+cluster6Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 6 )
+cluster7Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 7 )
+cluster8Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 8 )
+cluster9Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 9 )
+cluster10Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 10 )
+cluster11Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 11 )
+cluster12Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 12 )
+
+boxplot(postVPBBS[rownames(cluster1Pam.k12),15],
+         postVPBBS[rownames(cluster2Pam.k12),15],
+         postVPBBS[rownames(cluster3Pam.k12),15],
+        postVPBBS[rownames(cluster4Pam.k12),15],
+        postVPBBS[rownames(cluster5Pam.k12),15],
+        postVPBBS[rownames(cluster6Pam.k12),15],
+        postVPBBS[rownames(cluster7Pam.k12),15],
+        postVPBBS[rownames(cluster8Pam.k12),15],
+        postVPBBS[rownames(cluster9Pam.k12),15],
+        postVPBBS[rownames(cluster10Pam.k12),15], 
+	postVPBBS[rownames(cluster11Pam.k12),15], 
+        postVPBBS[rownames(cluster12Pam.k12),15], col="#ABC8E2", ylim = c(0,50), names= c('1','2','3','4','5','6','7','8','9','10','11','12') )
+
+
+
+
 
 
 USEFULL 
