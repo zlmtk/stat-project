@@ -198,4 +198,22 @@ predict(dt, testQmax)
 # comment on valide?
 ##################
 
+#
+# Resultats preOP (au pif pour sortir le diagramme histogramme)
+#
+rescah_preRTUPB<-hclust(dist(preRTUPB),method="ward")
+preRTUPB_class<-cutree(rescah_preRTUPB,4)
+rescah_preVPPBS<-hclust(dist(preVPBBS),method="ward")
+preVPPBS_class<-cutree(rescah_preVPPBS,6)
+#
+# Resultats postOP
+#
+rescah_postRTUPB<-hclust(dist(postRTUPB),method="ward")
+postRTUPB_class<-cutree(rescah_postRTUPB,4)
+rescah_postVPPBS<-hclust(dist(postVPPBS),method="ward")
+postVPPBS_class<-cutree(rescah_postVPPBS,5)
+barplot(as.table(rbind(preRTUPB_class,postRTUPB_class)), col=c("darkblue","red"), beside=TRUE, xlab="Patients", ylab="Class ID", names.arg=c(1:32), legend=TRUE, args.legend = list(x = "top"), ylim = c(0,8))
+barplot(as.table(rbind(preVPPBS_class,postVPPBS_class)), col=c("darkblue","red"), beside=TRUE, xlab="Patients", ylab="Class ID", names.arg=c(1:32), legend=TRUE, args.legend = list(x = "top"), ylim = c(0,8))
+
+
 
