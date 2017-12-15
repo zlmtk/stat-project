@@ -236,51 +236,122 @@ boxplot(postVAPOR$Qmax..ml.s.,postVAPOR$Qmax.ml.s.,postVAPOR$Qmax..ml.s..1,postV
 
 PAM 
 ---------------------------------------------------------------------------
- result<-NULL 
- for(vx in 2:19){ 
-         x<-cluster::pam(preVAPORclean,vx)
-         result[vx] <- x$silinfo$avg.width } 
+result<-NULL 
+for(vx in 2:25){ 
+    x<-cluster::pam(preVAPORclean,vx)
+    result[vx] <- x$silinfo$avg.width } 
 
- plot (result, xlab = "Nombre de clusters", ylab = "Moyenne silhouette")
- abline (v=12,col="blue") 
-
-
+plot (result, xlab = "Nombre de clusters", ylab = "Moyenne silhouette")
+abline (v=17,col="blue")
 
 
-Comme hypothese nous avons k=17 pour rtpb preop 
+
+
+Comme hypothese nous avons k=17 pour vapor preop 
 ----------------------------------------------------------------------------
-preVPBBSclean.pam.k12<-cluster::pam(preVPBBSclean,12)
-factoextra::fviz_cluster(preVPBBSclean.pam.k12, geom =c("point","text"), pointsize = 5, elipse=TRUE) 
-Medoids (27,2,29,4,31,32,21,22,23,24,25,26) 
+preVAPORclean.pam.k17<-cluster::pam(preVAPORclean,17)
+factoextra::fviz_cluster(preVAPORclean.pam.k17, geom =c("point","text"), pointsize = 5, elipse=TRUE) 
+Medoids () 
 
-clusterResultPam.k12 <- cbind(preVPBBSclean, clusterNum = preVPBBSclean.pam.k12$clustering) 
-cluster1Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 1 )
-cluster2Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 2 )
-cluster3Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 3 )
-cluster4Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 4 )
-cluster5Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 5 )
-cluster6Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 6 )
-cluster7Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 7 )
-cluster8Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 8 )
-cluster9Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 9 )
-cluster10Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 10 )
-cluster11Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 11 )
-cluster12Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 12 )
+clusterResultPam.k17 <- cbind(preVAPORclean, clusterNum = preVAPORclean.pam.k17$clustering) 
+cluster1Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 1 )
+cluster2Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 2 )
+cluster3Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 3 )
+cluster4Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 4 )
+cluster5Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 5 )
+cluster6Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 6 )
+cluster7Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 7 )
+cluster8Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 8 )
+cluster9Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 9 )
+cluster10Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 10 )
+cluster11Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 11 )
+cluster12Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 12 )
+cluster13Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 13 )
+cluster14Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 14)
+cluster15Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 15 )
+cluster16Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 16 )
+cluster17Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 17 )
 
-boxplot(postVPBBS[rownames(cluster1Pam.k12),15],
-         postVPBBS[rownames(cluster2Pam.k12),15],
-         postVPBBS[rownames(cluster3Pam.k12),15],
-        postVPBBS[rownames(cluster4Pam.k12),15],
-        postVPBBS[rownames(cluster5Pam.k12),15],
-        postVPBBS[rownames(cluster6Pam.k12),15],
-        postVPBBS[rownames(cluster7Pam.k12),15],
-        postVPBBS[rownames(cluster8Pam.k12),15],
-        postVPBBS[rownames(cluster9Pam.k12),15],
-        postVPBBS[rownames(cluster10Pam.k12),15], 
-	postVPBBS[rownames(cluster11Pam.k12),15], 
-        postVPBBS[rownames(cluster12Pam.k12),15], col="#ABC8E2", ylim = c(0,50), names= c('1','2','3','4','5','6','7','8','9','10','11','12') )
+boxplot(postVAPOR[rownames(cluster1Pam.k17),15],
+         postVAPOR[rownames(cluster2Pam.k17),15],
+         postVAPOR[rownames(cluster3Pam.k17),15],
+        postVAPOR[rownames(cluster4Pam.k17),15],
+        postVAPOR[rownames(cluster5Pam.k17),15],
+        postVAPOR[rownames(cluster6Pam.k17),15],
+        postVAPOR[rownames(cluster7Pam.k17),15],
+        postVAPOR[rownames(cluster8Pam.k17),15],
+        postVAPOR[rownames(cluster9Pam.k17),15],
+        postVAPOR[rownames(cluster10Pam.k17),15], 
+	postVAPOR[rownames(cluster11Pam.k17),15], 
+        postVAPOR[rownames(cluster12Pam.k17),15], 
+	postVAPOR[rownames(cluster13Pam.k17),15],
+  	postVAPOR[rownames(cluster14Pam.k17),15], 
+  	postVAPOR[rownames(cluster15Pam.k17),15], 
+  	postVAPOR[rownames(cluster16Pam.k17),15], 
+  	postVAPOR[rownames(cluster17Pam.k17),15], col="#ABC8E2", ylim = c(0,50), names= c('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17')) 
 
 
+
+rawRTUPBSVPPBS <- read_excel("bases/RTUPB-VBPPS.xlsx", 
+
+    col_types = c("text", "numeric", "logical", 
+
+        "numeric", "logical", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "logical", "numeric", 
+
+        "logical", "numeric", "numeric", 
+
+        "numeric", "logical", "logical", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric"), 
+
+    skip = 1)
+
+
+setIPSS<-rawRTUPBSVPPBS[, c(1:21,34)]
+# 80% of rows -> training set
+ns<-floor(0.80*nrow(setIPSS))
+# shuffle rows
+shuffle<-setIPSS[sample(nrow(setIPSS)),]
+trainIPSS<-shuffle[1:ns,]
+testIPSS<-shuffle[-c(1:ns),]
+dt<-rpart(IPSS__4 ~. , data = trainIPSS)
+plot(dt, margin = .1, main="Arbre de Régression pour IPSS à 12 mois sur RTUPB-VPPBS")
+text(dt, use.n = TRUE)
+summary(dt)
+	
+> predict(dt, testIPSS)
+       4        2       25        8       59       24       40       46       12 
+1.666667 1.666667 2.700000 2.700000 1.000000 3.750000 1.700000 2.700000 1.000000 
+      23       39       48       51       34 
+1.000000 3.750000 3.750000 3.750000 1.666667 
+> testIPSS$IPSS__4
+ [1]  2  1  3  3  0  2  2  3  1  1 13  5 13  2
+	
+sapply(predict(dt, testIPSS),round)
+ 2  2  3  3  1  4  2  3  1  1  4  4  4  2 
+	
+2 1 3 3 0 2 2 3 1 1 13 5 13 2
+	
+ 
+2 1 3 3 0 2 2 3 1 1 13 5 13 2
 
 
 
