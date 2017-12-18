@@ -158,53 +158,144 @@ text(fitQoL,use.n=TRUE)
 fitQmax<-rpart::rpart(`Qmax (ml/s)__3` ~ ., data = rawVAPOR[,c(01:20,35)])
 plot(fitQmax, main="VAPOR: prédiction Qmax à 12 mois")
 text(fitQmax,use.n=TRUE)
-# ******************************************
-# Classification supervisée RTUPB-VPPBS
-# ******************************************
+# **********************************
+# Classification supervisée RTUPB
+# **********************************
 library(rpart)
-setIPSS<-rawRTUPBSVPPBS[, c(1:21,34)]
+library(rpart.plot)
+library(corrplot)
+library(rattle)
+setIPSS<-subset(rawRTUPBSVPPBS[, c(1:21,34)],"technique"="RTUPB")[,-c(1,11,14,15,16,21)]
 # 80% of rows -> training set
 ns<-floor(0.80*nrow(setIPSS))
 # shuffle rows
 shuffle<-setIPSS[sample(nrow(setIPSS)),]
 trainIPSS<-shuffle[1:ns,]
 testIPSS<-shuffle[-c(1:ns),]
-dt<-rpart(IPSS__4 ~. , data = trainIPSS)
-plot(dt, margin = .1, main="Arbre de Régression pour IPSS à 12 mois sur RTUPB-VPPBS")
+dt<-rpart(IPSS__4 ~. , data = trainIPSS, method="class")
+plot(dt, margin = .1, main="Arbre de Régression pour IPSS à 12 mois sur RTUPB")
 text(dt, use.n = TRUE)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour IPSS à 12 mois sur RTUPB")
 summary(dt)
 predict(dt, testIPSS)
-# comment on valide?
+resIPSS_RTUPB<-predict(dt, testIPSS)
+corrplot::corrplot(t(resIPSS_RTUPB),is.corr=TRUE, cl.pos = 'n', title="Prédiction IPSS pour échantillon de test RTUPB")
 ##################
-setQoL<-rawRTUPBSVPPBS[, c(1:21,35)]
+setQoL<-subset(rawRTUPBSVPPBS[, c(1:21,35)],"technique"="RTUPB")[,-c(1,11,14,15,16,21)]
 shuffle<-setQoL[sample(nrow(setQoL)),]
 trainQoL<-shuffle[1:ns,]
 testQoL<-shuffle[-c(1:ns),]
-dt<-rpart(QoL__4 ~. , data = trainQoL)
-plot(dt, margin = .1, main="Arbre de Régression pour QoL à 12 mois sur RTUPB-VPPBS")
+dt<-rpart(QoL__4 ~. , data = trainQoL, method="class")
+plot(dt, margin = .1, main="Arbre de Régression pour QoL à 12 mois sur RTUPB")
 text(dt, use.n = TRUE)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour QoL à 12 mois sur RTUPB")
 summary(dt)
-predict(dt, testQoL)
-# comment on valide?
+resQoL_RTUPB<-predict(dt, testQoL)
+corrplot::corrplot(t(resQoL_RTUPB),is.corr=TRUE, cl.pos = 'n', title="Prédiction QoL pour échantillon de test RTUPB")
+barplot( testQoL$QoL__4, names.arg = rownames(testQoL), main='Vérification QoL pour  échantillon de test RTUPB' )
 ##################
-setQmax<-rawRTUPBSVPPBS[, c(1:21,36)]
+setQmax<-subset(rawRTUPBSVPPBS[, c(1:21,36)],"technique"="RTUPB")[,-c(1,11,14,15,16,21)]
 shuffle<-setQmax[sample(nrow(setQmax)),]
 trainQmax<-shuffle[1:ns,]
 testQmax<-shuffle[-c(1:ns),]
 dt<-rpart(`Qmax (ml/s)__3` ~. , data = trainQmax)
-plot(dt, margin = .1, main="Arbre de Régression pour Qmax à 12 mois sur RTUPB-VPPBS")
+plot(dt, margin = .1, main="Arbre de Régression pour Qmax à 12 mois sur RTUPB")
 text(dt, use.n = TRUE)
-predict(dt, testQmax)
-# comment on valide?
+resQmax_RTUPB<-predict(dt, testQmax)
+barplot( rbind(resQmax_RTUPB, testQmax$`Qmax (ml/s)__3`), beside=TRUE, names.arg = rownames(testQmax), main='Vérification Qmax pour  échantillon de test RTUPB' )
+# **********************************
+# Classification supervisée VPPBS
+# **********************************
+library(rpart)
+setIPSS<-subset(rawRTUPBSVPPBS[, c(1:21,34)],"technique"="VPPBS")[,-c(1,5,11,14,15,16,18,20,21)]
+# 80% of rows -> training set
+ns<-floor(0.80*nrow(setIPSS))
+# shuffle rows
+shuffle<-setIPSS[sample(nrow(setIPSS)),]
+trainIPSS<-shuffle[1:ns,]
+testIPSS<-shuffle[-c(1:ns),]
+dt<-rpart(IPSS__4 ~. , data = trainIPSS, method="class")
+plot(dt, margin = .1, main="Arbre de Régression pour IPSS à 12 mois sur VPPBS")
+text(dt, use.n = TRUE)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour IPSS à 12 mois sur VPPBS")
+summary(dt)
+resIPSS_VPPBS<-predict(dt, testIPSS)
+corrplot::corrplot(t(resIPSS_VPPBS),is.corr=TRUE, cl.pos = 'n', title="Prédiction IPSS pour échantillon de test VPPBS")
 ##################
-
+setQoL<-subset(rawRTUPBSVPPBS[, c(1:21,35)],"technique"="VPPBS")[,-c(1,5,11,14,15,16,18,20,21)]
+shuffle<-setQoL[sample(nrow(setQoL)),]
+trainQoL<-shuffle[1:ns,]
+testQoL<-shuffle[-c(1:ns),]
+dt<-rpart(QoL__4 ~. , data = trainQoL, method="class")
+plot(dt, margin = .1, main="Arbre de Régression pour QoL à 12 mois sur VPPBS")
+text(dt, use.n = TRUE)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour QoL à 12 mois sur VPPBS")
+summary(dt)
+resQoL_VPPBS<-predict(dt, testQoL)
+corrplot::corrplot(t(resQoL_VPPBS),is.corr=TRUE, cl.pos = 'n', title="Prédiction QoL pour échantillon de test VPPBS")
+##################
+setQmax<-subset(rawRTUPBSVPPBS[, c(1:21,36)],"technique"="VPPBS")[,-c(1,5,11,14,15,16,18,20,21)]
+shuffle<-setQmax[sample(nrow(setQmax)),]
+trainQmax<-shuffle[1:ns,]
+testQmax<-shuffle[-c(1:ns),]
+dt<-rpart(`Qmax (ml/s)__3` ~. , data = trainQmax)
+plot(dt, margin = .1, main="Arbre de Régression pour Qmax à 12 mois sur VPPBS")
+text(dt, use.n = TRUE)
+summary(dt)
+fancyRpartPlot(dt)
+resQmax_VPPBS<-predict(dt, testQmax)
+barplot( rbind(resQmax_VPPBS, testQmax$`Qmax (ml/s)__3`), beside=TRUE, names.arg = rownames(testQmax), main='Vérification Qmax pour  échantillon de test VPPBS' )
+# **********************************
+# Classification supervisée VAPOR
+# **********************************
+library(rpart)
+setIPSS<-(rawVAPOR[,c(01:20,34)])[,-c(1,5,11,15)]
+# 80% of rows -> training set
+ns<-floor(0.80*nrow(setIPSS))
+# shuffle rows
+shuffle<-setIPSS[sample(nrow(setIPSS)),]
+trainIPSS<-shuffle[1:ns,]
+testIPSS<-shuffle[-c(1:ns),]
+dt<-rpart(IPSS.4 ~. , data = trainIPSS, method="class")
+plot(dt, margin = .1, main="Arbre de Régression pour IPSS à 12 mois sur VAPOR")
+text(dt, use.n = TRUE)
+summary(dt)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour IPSS à 12 mois sur VAPOR")
+summary(dt)
+resIPSS_VAPOR<-predict(dt, testIPSS)
+corrplot::corrplot(t(resIPSS_VAPOR),is.corr=TRUE, cl.pos = 'n', title="Prédiction IPSS pour échantillon de test VAPOR")
+##################
+setQoL<-(rawVAPOR[,c(01:20,35)])[,-c(1,5,11,15)]
+shuffle<-setQoL[sample(nrow(setQoL)),]
+trainQoL<-shuffle[1:ns,]
+testQoL<-shuffle[-c(1:ns),]
+dt<-rpart(QoL.4 ~. , data = trainQoL, method="class")
+plot(dt, margin = .1, main="Arbre de Régression pour QoL à 12 mois sur VAPOR")
+text(dt, use.n = TRUE)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour QoL à 12 mois sur VAPOR")
+summary(dt)
+resQoL_VAPOR<-predict(dt, testQoL)
+corrplot::corrplot(t(resQoL_VAPOR),is.corr=TRUE, cl.pos = 'n', title="Prédiction QoL pour échantillon de test VAPOR")
+##################
+setQmax<-(rawVAPOR[,c(01:20,36)])[,-c(1,5,11,15)]
+shuffle<-setQmax[sample(nrow(setQmax)),]
+trainQmax<-shuffle[1:ns,]
+testQmax<-shuffle[-c(1:ns),]
+dt<-rpart(Qmax..ml.s..3 ~. , data = trainQmax)
+plot(dt, margin = .1, main="Arbre de Régression pour Qmax à 12 mois sur VAPOR")
+text(dt, use.n = TRUE)
+summary(dt)
+fancyRpartPlot(dt)
+resQmax_VAPOR<-predict(dt, testQmax)
+barplot( rbind(resQmax_VAPOR, testQmax$Qmax..ml.s..3), beside=TRUE, names.arg = rownames(testQmax), main='Vérification Qmax pour  échantillon de test VAPOR' )
+      
 #
 # Resultats preOP (au pif pour sortir le diagramme histogramme)
 #
 rescah_preRTUPB<-hclust(dist(preRTUPB),method="ward")
-preRTUPB_class<-cutree(rescah_preRTUPB,4)
+preRTUPB_class<-cutree(rescah_preRTUPB,12)
 rescah_preVPPBS<-hclust(dist(preVPBBS),method="ward")
-preVPPBS_class<-cutree(rescah_preVPPBS,6)
+preVPPBS_class<-cutree(rescah_preVPPBS,12)
 #
 # Resultats postOP
 #
@@ -212,8 +303,8 @@ rescah_postRTUPB<-hclust(dist(postRTUPB),method="ward")
 postRTUPB_class<-cutree(rescah_postRTUPB,4)
 rescah_postVPPBS<-hclust(dist(postVPPBS),method="ward")
 postVPPBS_class<-cutree(rescah_postVPPBS,5)
-barplot(as.table(rbind(preRTUPB_class,postRTUPB_class)), col=c("darkblue","red"), beside=TRUE, xlab="Patients", ylab="Class ID", names.arg=c(1:32), legend=TRUE, args.legend = list(x = "top"), ylim = c(0,8))
-barplot(as.table(rbind(preVPPBS_class,postVPPBS_class)), col=c("darkblue","red"), beside=TRUE, xlab="Patients", ylab="Class ID", names.arg=c(1:32), legend=TRUE, args.legend = list(x = "top"), ylim = c(0,8))
+barplot(as.table(rbind(preRTUPB_class,postRTUPB_class)), col=c("darkblue","red"), beside=TRUE, xlab="Patients", ylab="Class ID", names.arg=c(1:32), legend=TRUE, args.legend = list(x = "top"), ylim = c(0,13))
+barplot(as.table(rbind(preVPPBS_class,postVPPBS_class)), col=c("darkblue","red"), beside=TRUE, xlab="Patients", ylab="Class ID", names.arg=c(1:32), legend=TRUE, args.legend = list(x = "top"), ylim = c(0,13))
 
 
 
