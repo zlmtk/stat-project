@@ -296,8 +296,10 @@ rescah_preRTUPB<-hclust(dist(preRTUPB),method="ward")
 preRTUPB_class<-cutree(rescah_preRTUPB,12)
 rescah_preVPPBS<-hclust(dist(preVPBBS),method="ward")
 preVPPBS_class<-cutree(rescah_preVPPBS,12)
+
+
 #
-# Resultats postOP
+# Resultats postOP RTUPB
 #
 rescah_postRTUPB<-hclust(dist(postRTUPB),method="ward")
 postRTUPB_class<-cutree(rescah_postRTUPB,4)
@@ -306,5 +308,53 @@ postVPPBS_class<-cutree(rescah_postVPPBS,5)
 barplot(as.table(rbind(preRTUPB_class,postRTUPB_class)), col=c("darkblue","red"), beside=TRUE, xlab="Patients", ylab="Class ID", names.arg=c(1:32), legend=TRUE, args.legend = list(x = "top"), ylim = c(0,13))
 barplot(as.table(rbind(preVPPBS_class,postVPPBS_class)), col=c("darkblue","red"), beside=TRUE, xlab="Patients", ylab="Class ID", names.arg=c(1:32), legend=TRUE, args.legend = list(x = "top"), ylim = c(0,13))
 
-
-
+#
+# Regtree preop -> class postop RTUPB
+#
+library(rpart)
+library(rpart.plot)
+library(corrplot)
+library(rattle)
+setRTUPB<-subset(rawRTUPBSVPPBS, grepl("RTUPB", technique), select = c(1:21))[,-c(1,11,14,15,16,21)]
+rescah_postRTUPB<-hclust(dist(postRTUPB),method="ward")
+postRTUPB_class<-cutree(rescah_postRTUPB,4)
+setRTUPBclass<-cbind(setRTUPB, postRTUPB_class)
+# 80% of rows -> training set
+ns<-floor(0.80*nrow(setRTUPBclass))
+# shuffle rows
+shuffle<-setRTUPBclass[sample(nrow(setRTUPBclass)),]
+trainRTUPBclass<-shuffle[1:ns,]
+testRTUPBclass<-shuffle[-c(1:ns),]
+dt<-rpart(postRTUPB_class ~. , data = trainRTUPBclass, method="class")
+plot(dt, margin = .1, main="Arbre de Régression pour classe de guérison sur RTUPB")
+text(dt, use.n = TRUE)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour classe de guérison sur RTUPB")
+summary(dt)
+predict(dt, testRTUPBclass)
+resClass_RTUPB<-predict(dt, testRTUPBclass)
+corrplot::corrplot(t(resClass_RTUPB),is.corr=TRUE, cl.pos = 'n', title="Prédiction classe de guérison pour échantillon de test RTUPB")
+#
+# Regtree preop -> class postop VPPBS
+#
+library(rpart)
+library(rpart.plot)
+library(corrplot)
+library(rattle)
+setVPPBS<-subset(rawRTUPBSVPPBS, grepl("VBPPS", technique), select = c(1:21))[,-c(1,5,11,14,15,16,18,20,21)]
+rescah_postVPPBS<-hclust(dist(postVPPBS),method="ward")
+postVPPBS_class<-cutree(rescah_postVPPBS,5)
+setVPPBSclass<-cbind(setVPPBS, postVPPBS_class)
+# 80% of rows -> training set
+ns<-floor(0.80*nrow(setVPPBSclass))
+# shuffle rows
+shuffle<-setVPPBSclass[sample(nrow(setVPPBSclass)),]
+trainVPPBSclass<-shuffle[1:ns,]
+testVPPBSclass<-shuffle[-c(1:ns),]
+dt<-rpart(postVPPBS_class ~. , data = trainVPPBSclass, method="class")
+plot(dt, margin = .1, main="Arbre de Régression pour classe de guérison sur VPPBS")
+text(dt, use.n = TRUE)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour classe de guérison sur VPPBS")
+summary(dt)
+predict(dt, testVPPBSclass)
+resClass_VPPBS<-predict(dt, testVPPBSclass)
+corrplot::corrplot(t(resClass_VPPBS),is.corr=TRUE, cl.pos = 'n', title="Prédiction classe de guérison pour échantillon de test VPPBS")
