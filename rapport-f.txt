@@ -165,7 +165,7 @@ library(rpart)
 library(rpart.plot)
 library(corrplot)
 library(rattle)
-setIPSS<-subset(rawRTUPBSVPPBS[, c(1:21,34)],"technique"="RTUPB")[,-c(1,11,14,15,16,21)]
+setIPSS<-subset(rawRTUPBSVPPBS,grepl("RTUPB", technique), select = c(1:21,34))[,-c(1,11,14,15,16,21)]
 # 80% of rows -> training set
 ns<-floor(0.80*nrow(setIPSS))
 # shuffle rows
@@ -181,7 +181,7 @@ predict(dt, testIPSS)
 resIPSS_RTUPB<-predict(dt, testIPSS)
 corrplot::corrplot(t(resIPSS_RTUPB),is.corr=TRUE, cl.pos = 'n', title="Prédiction IPSS pour échantillon de test RTUPB")
 ##################
-setQoL<-subset(rawRTUPBSVPPBS[, c(1:21,35)],"technique"="RTUPB")[,-c(1,11,14,15,16,21)]
+setQoL<-subset(rawRTUPBSVPPBS,grepl("RTUPB", technique), select = c(1:21,35))[,-c(1,11,14,15,16,21)]
 shuffle<-setQoL[sample(nrow(setQoL)),]
 trainQoL<-shuffle[1:ns,]
 testQoL<-shuffle[-c(1:ns),]
@@ -194,7 +194,7 @@ resQoL_RTUPB<-predict(dt, testQoL)
 corrplot::corrplot(t(resQoL_RTUPB),is.corr=TRUE, cl.pos = 'n', title="Prédiction QoL pour échantillon de test RTUPB")
 barplot( testQoL$QoL__4, names.arg = rownames(testQoL), main='Vérification QoL pour  échantillon de test RTUPB' )
 ##################
-setQmax<-subset(rawRTUPBSVPPBS[, c(1:21,36)],"technique"="RTUPB")[,-c(1,11,14,15,16,21)]
+setQmax<-subset(rawRTUPBSVPPBS,grepl("RTUPB", technique), select = c(1:21,36))[,-c(1,11,14,15,16,21)]
 shuffle<-setQmax[sample(nrow(setQmax)),]
 trainQmax<-shuffle[1:ns,]
 testQmax<-shuffle[-c(1:ns),]
@@ -207,7 +207,7 @@ barplot( rbind(resQmax_RTUPB, testQmax$`Qmax (ml/s)__3`), beside=TRUE, names.arg
 # Classification supervisée VPPBS
 # **********************************
 library(rpart)
-setIPSS<-subset(rawRTUPBSVPPBS[, c(1:21,34)],"technique"="VPPBS")[,-c(1,5,11,14,15,16,18,20,21)]
+setIPSS<-subset(rawRTUPBSVPPBS,grepl("VBPPS", technique), select = c(1:21,34))[,-c(1,5,11,14,15,16,18,20,21)]
 # 80% of rows -> training set
 ns<-floor(0.80*nrow(setIPSS))
 # shuffle rows
@@ -222,7 +222,7 @@ summary(dt)
 resIPSS_VPPBS<-predict(dt, testIPSS)
 corrplot::corrplot(t(resIPSS_VPPBS),is.corr=TRUE, cl.pos = 'n', title="Prédiction IPSS pour échantillon de test VPPBS")
 ##################
-setQoL<-subset(rawRTUPBSVPPBS[, c(1:21,35)],"technique"="VPPBS")[,-c(1,5,11,14,15,16,18,20,21)]
+setQoL<-subset(rawRTUPBSVPPBS,grepl("VBPPS", technique), select = c(1:21,35))[,-c(1,5,11,14,15,16,18,20,21)]
 shuffle<-setQoL[sample(nrow(setQoL)),]
 trainQoL<-shuffle[1:ns,]
 testQoL<-shuffle[-c(1:ns),]
@@ -234,7 +234,7 @@ summary(dt)
 resQoL_VPPBS<-predict(dt, testQoL)
 corrplot::corrplot(t(resQoL_VPPBS),is.corr=TRUE, cl.pos = 'n', title="Prédiction QoL pour échantillon de test VPPBS")
 ##################
-setQmax<-subset(rawRTUPBSVPPBS[, c(1:21,36)],"technique"="VPPBS")[,-c(1,5,11,14,15,16,18,20,21)]
+setQmax<-subset(rawRTUPBSVPPBS,grepl("VBPPS", technique), select = c(1:21,36))[,-c(1,5,11,14,15,16,18,20,21)]
 shuffle<-setQmax[sample(nrow(setQmax)),]
 trainQmax<-shuffle[1:ns,]
 testQmax<-shuffle[-c(1:ns),]
