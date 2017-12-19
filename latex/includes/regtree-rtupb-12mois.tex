@@ -8,7 +8,6 @@
 %
 %###############################################
 
-
 Dans les sections qui suivent, nous réutilisons la même méthode pour construire un arbre de régression:
 pour chacune des techniques opératoires (respectivement RTUPB, VPPBS et VAPOR) et à partir des données pré-opératoires précédemment utilisées et nettoyées des variables invariantes ou incomplètes, auxquelles on ajoutera
 la variable à prédire, nous effectuons un tirage aléatoire pour créer deux ensembles de données:
@@ -21,7 +20,17 @@ traitée comme une variable linéaire.
 
 \subsubsection{RTUPB: QoL à 12 mois}
 
-L'arbre de régression obtenu pour la variable QoL à 12 mois (colonne QoL__4) met en oeuvre une seule variable (Cf. figure~\ref{fig-rtupb-regtree-qol12}). Les feuilles de l'arbre représentent, en première ligne, la valeur prédite (la plus probable) pour QoL à 12 mois. La ligne suivante indique les probabilités pour chacun des 3 niveaux constatés sur l'échantillon d'apprentissage pour QoL à 12 mois, c'est-à-dire respectivement 0/1/2. Par exemple en cas d'IPSS pré-opératoire à 30, l'arbre de régression conduit à la feuille en bas à droite et prédit une valeur QoL à 2 avec une probabilité de 59\%.
+L'arbre de régression obtenu pour la variable QoL à 12 mois (colonne QoL\_\_4) met en oeuvre une seule variable (Cf. figure~\ref{fig-rtupb-regtree-qol12}). Les feuilles de l'arbre représentent, en première ligne, la valeur prédite (la plus probable) pour QoL à 12 mois. La ligne suivante indique les probabilités pour chacun des 3 niveaux constatés sur l'échantillon d'apprentissage pour QoL à 12 mois, c'est-à-dire respectivement 0/1/2. Par exemple en cas d'IPSS pré-opératoire à 30, l'arbre de régression conduit à la feuille en bas à droite et prédit une valeur QoL à 2 avec une probabilité de 53\%.
+
+Nous vérifions le rôle et le poids d'autres variables dans cet arbre de régression:
+\begin{lstlisting}[language=R]
+> dt$variable.importance
+              IPSS P.O              Age (ans) Délai ablation (jours) 
+              3.710944               2.061636               2.061636 
+               QoL P.O             Anesthésie        Qmax P.O (ml/s) 
+              2.061636               1.649308               1.649308 
+\end{lstlisting}
+
 
 \begin{figure}[H]
 \centering
@@ -44,17 +53,26 @@ L'arbre de régression obtenu pour la variable QoL à 12 mois (colonne QoL__4) m
 \label{fig-rtupb-regtree-test-qol12}
 \end{figure}
 
-En appliquant cet arbre sur l'ensemble de tests, nous obtenons pour chaque patient une table de probabilités (figure~\ref{fig-rtupb-regtree-predict-qol12}) pour chacune des valeurs QoL 0/1/2. On peut alors comparer les prédictions (les valeurs les plus probables) avec les valeurs de référence (figure~\ref{fig-rtupb-regtree-test-qol12}. Celles-ci sont correctes pour cinq patients sur 8, et incorrectes pour les 3 autres (27, 32 et 18).
+En appliquant cet arbre sur l'ensemble de tests, nous obtenons pour chaque patient une table de probabilités (figure~\ref{fig-rtupb-regtree-predict-qol12}) pour chacune des valeurs QoL 0/1/2. On peut alors comparer les prédictions (les valeurs les plus probables) avec les valeurs de référence (figure~\ref{fig-rtupb-regtree-test-qol12}. Celles-ci sont correctes pour 4 patients sur 8, et incorrectes pour les 4 autres (20, 29, 5 et 21).
 
 Afin d'améliorer les résultats de prédiction, il nous faudrait répéter l'opération et utiliser une forêt d'arbres de régression. La prédiction utilisée sera alors la prédiction moyenne de l'ensemble des arbres de la forêt.
 
 \subsubsection{RTUPB: IPSS à 12 mois}
 
-L'arbre de régression obtenu pour la variable IPSS à 12 mois (colonne IPSS__4) met en oeuvre 2 variables (Cf. figure~\ref{fig-rtupb-regtree-ipss12}). Les feuilles de l'arbre représentent, en première ligne, la valeur prédite (la plus probable) pour IPSS à 12 mois. La ligne suivante indique les probabilités pour chacun des 3 niveaux constatés sur l'échantillon d'apprentissage pour IPSS à 12 mois, c'est-à-dire respectivement 1/2/3. Par exemple en cas de volume réséqué de 35 ml, l'arbre de régression conduit à la feuille en bas à gauche et prédit une valeur IPSS à 1 avec une probabilité de 62\%.
+L'arbre de régression obtenu pour la variable IPSS à 12 mois (colonne IPSS\_\_4) met en oeuvre une seule variable (Cf. figure~\ref{fig-rtupb-regtree-ipss12}).
+Nous vérifions le moindre rôle d'autres variables:
+\begin{lstlisting}[language=R]
+dt$variable.importance
+            caillotage            PSA (ng/ml)              Age (ans) 
+              2.992857               1.496429               1.122321 
+Délai ablation (jours)               IPSS P.O                QoL P.O 
+              1.122321               1.122321               1.122321 
+\end{lstlisting}
+Les feuilles de l'arbre représentent, en première ligne, la valeur prédite (la plus probable) pour IPSS à 12 mois. La ligne suivante indique les probabilités pour chacun des 3 niveaux constatés sur l'échantillon d'apprentissage pour IPSS à 12 mois, c'est-à-dire respectivement 1/2/3. Par exemple en cas de caillotage (valeur == 1), l'arbre de régression conduit à la feuille en bas à gauche et prédit une valeur IPSS à 1 avec une probabilité de 88\%.
 
-En appliquant cet arbre sur l'ensemble de tests, nous obtenons pour chaque patient une table de probabilités (figure~\ref{fig-rtupb-regtree-predict-ipss12}) pour chacune des valeurs IPSS 1/2/3. Les prédictions (valeurs
-les plus probables) sont correctes pour tous les patients à l'exception du 18 pour lequel la valeur référence
-IPSS à 12 mois est de 4 alors que la prédiction affiche 2, mais il s'agit d'un singleton qui n'était donc pas représenté dans l'échantillon d'apprentissage.
+En appliquant cet arbre sur l'ensemble de tests, nous obtenons pour chaque patient une table de probabilités (figure~\ref{fig-rtupb-regtree-predict-ipss12}) pour chacune des valeurs IPSS 1/2/3/4. Les prédictions (valeurs
+les plus probables) sont correctes pour tous les patients à l'exception des patients 20 et 29 pour lesquels la valeur référence
+IPSS à 12 mois est de 1 (valeur moins.
 
 \begin{figure}[H]
 \centering
@@ -74,7 +92,7 @@ IPSS à 12 mois est de 4 alors que la prédiction affiche 2, mais il s'agit d'un
 
 \subsubsection{RTUPB: Qmax à 12 mois}
 
-L'arbre de régression obtenu pour la variable Qmax à 12 mois (colonne Qmax (ml/s)__3) met en oeuvre 2 variables (Cf. figure~\ref{fig-rtupb-regtree-qmax12}). Les feuilles de l'arbre représentent, en première ligne, la valeur approximative pour Qmax à 12 mois. La ligne suivante indique le nombre de patients de l'échantillon d'apprentissage correspondant à cette feuille. 
+L'arbre de régression obtenu pour la variable Qmax à 12 mois (colonne Qmax (ml/s)\_\_3) met en oeuvre 2 variables (Cf. figure~\ref{fig-rtupb-regtree-qmax12}). Les feuilles de l'arbre représentent, en première ligne, la valeur approximative pour Qmax à 12 mois. La ligne suivante indique le nombre de patients de l'échantillon d'apprentissage correspondant à cette feuille. 
 
 \begin{figure}[H]
 \centering
@@ -84,7 +102,7 @@ L'arbre de régression obtenu pour la variable Qmax à 12 mois (colonne Qmax (ml
 \end{figure}
 
 Pour évaluer l'arbre de régression, nous utiliserons une mesure de distance (valeur absolue de la différence) pour entre la valeur prédite et la valeur de référence pour chaque patient de l'ensemble de validation. 
-La figure~\ref{fig-rtupb-regtree-test-qmax12} représente l'écart constaté entre valeurs prédites (colonne de gauche) et valeurs de référence (colonne de droite). La moyenne de ces écarts nous donne une mesure du taux d'erreur de l'arbre. En répétant l'opération pour construire une forêt d'arbres de régression, nous utiserons alors la prédiction rendue par l'arbre avec le plus faible taux d'erreur.
+La figure~\ref{fig-rtupb-regtree-test-qmax12} représente l'écart constaté entre valeurs prédites (colonne de gauche) et valeurs de référence (colonne de droite). La moyenne de ces écarts nous donne une mesure du taux d'erreur de l'arbre. En répétant l'opération pour construire une forêt d'arbres de régression, nous utiliserons alors la prédiction rendue par l'arbre avec le plus faible taux d'erreur.
 
 \begin{figure}[H]
 \centering
