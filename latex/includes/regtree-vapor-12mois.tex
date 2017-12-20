@@ -96,12 +96,16 @@ Soit un taux d'erreur de 12,5\%.
 
 \subsubsection{VAPOR: Qmax à 12 mois}
 
+L'arbre de régression obtenu pour la variable Qmax à 12 mois (colonne Qmax (ml/s)\_\_3) met en oeuvre une seule variable (Cf. figure~\ref{fig-vapor-regtree-qmax12}). Les feuilles de l'arbre représentent, en première ligne, la valeur approximative pour Qmax à 12 mois. La ligne suivante indique le nombre de patients de l'échantillon d'apprentissage correspondant à cette feuille. 
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{../Fig/VAPOR/vapor-regtree-qmax12.png}
 \caption{VAPOR: Arbre de régression pour Qmax à 12 mois}
 \label{fig-vapor-regtree-qmax12}
 \end{figure}
+
+La figure~\ref{fig-vapor-regtree-test-qmax12} représente l'écart constaté entre valeurs prédites (colonne de gauche) et valeurs de référence (colonne de droite) sur l'échantillon de validation. La moyenne de ces écarts nous donne une mesure du taux d'erreur de l'arbre. En utilisant une forêt aléatoire d'arbres, figure~\ref{fig-vapor-forest-test-qmax12}, cet écart est réduit.
 
 \begin{figure}[H]
 \centering
@@ -113,7 +117,7 @@ Soit un taux d'erreur de 12,5\%.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{../Fig/VAPOR/vapor-forest-test-qmax12.png}
-\caption{VAPOR: Evaluation des prévisions pour Qmax à 12 mois}
+\caption{VAPOR: Evaluation des prévisions (Random Forest) pour Qmax à 12 mois}
 \label{fig-vapor-regtree-test-qmax12}
 \end{figure}
 
