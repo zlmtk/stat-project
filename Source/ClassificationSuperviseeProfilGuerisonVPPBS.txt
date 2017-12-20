@@ -1,0 +1,44 @@
+#
+# Regtree preop -> class postop VPPBS
+#
+library(rpart)
+library(rpart.plot)
+library(corrplot)
+setVPPBS<-subset(rawRTUPBSVPPBS, grepl("VBPPS", technique), select = c(1:21))[,-c(1,5,11,14,15,16,18,20,21)]
+rescah_postVPPBS<-hclust(dist(postVPPBS),method="ward")
+postVPPBS_class<-cutree(rescah_postVPPBS,5)
+setVPPBSclass<-cbind(setVPPBS, postVPPBS_class)
+# Substitution des espaces non supportes par randomForest
+colnames(setVPPBSclass)<-make.names(colnames(setVPPBSclass))
+# 80% of rows -> training set
+ns<-floor(0.80*nrow(setVPPBSclass))
+# shuffle rows
+set.seed(2017)
+shuffle<-setVPPBSclass[sample(nrow(setVPPBSclass)),]
+trainVPPBSclass<-shuffle[1:ns,]
+testVPPBSclass<-shuffle[-c(1:ns),]
+dt<-rpart(postVPPBS_class ~. , data = trainVPPBSclass, method="class")
+plot(dt, margin = .1, main="Arbre de Régression pour classe de guérison sur VPPBS")
+text(dt, use.n = TRUE)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour classe de guérison sur VPPBS")
+summary(dt)
+predict(dt, testVPPBSclass)
+resClass_VPPBS<-predict(dt, testVPPBSclass)
+corrplot::corrplot(t(resClass_VPPBS),is.corr=TRUE, cl.pos = 'n', title="Prédiction classe de guérison pour échantillon de test VPPBS")
+table(validation = testVPPBSclass$postVPPBS_class, prediction =  predict(dt, testVPPBSclass, type="class"))
+          # prediction
+# validation 1 2 3 4 5
+         # 1 0 1 0 0 0
+         # 2 0 0 0 1 0
+         # 3 0 1 0 0 0
+         # 4 0 0 0 1 0
+         # 5 0 3 0 0 0
+rf<-randomForest(as.factor(postVPPBS_class) ~ ., data = trainVPPBSclass)
+table(validation = testVPPBSclass$postVPPBS_class, prediction =  predict(rf, testVPPBSclass))
+           # prediction
+# validation 1 2 3 4 5
+         # 1 1 0 0 0 0
+         # 2 0 1 0 0 0
+         # 3 0 0 1 0 0
+         # 4 0 0 0 1 0
+         # 5 0 0 0 0 3

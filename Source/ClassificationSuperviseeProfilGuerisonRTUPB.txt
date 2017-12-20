@@ -1,0 +1,40 @@
+#
+# Regtree preop -> class postop RTUPB
+#
+library(rpart)
+library(rpart.plot)
+library(corrplot)
+setRTUPB<-subset(rawRTUPBSVPPBS, grepl("RTUPB", technique), select = c(1:21))[,-c(1,11,14,15,16,21)]
+rescah_postRTUPB<-hclust(dist(postRTUPB),method="ward")
+postRTUPB_class<-cutree(rescah_postRTUPB,4)
+setRTUPBclass<-cbind(setRTUPB, postRTUPB_class)
+# Substitution des espaces non supportes par randomForest
+colnames(setRTUPBclass)<-make.names(colnames(setRTUPBclass))
+# 80% of rows -> training set
+ns<-floor(0.80*nrow(setRTUPBclass))
+# shuffle rows
+set.seed(2017)
+shuffle<-setRTUPBclass[sample(nrow(setRTUPBclass)),]
+trainRTUPBclass<-shuffle[1:ns,]
+testRTUPBclass<-shuffle[-c(1:ns),]
+dt<-rpart(postRTUPB_class ~. , data = trainRTUPBclass, method="class")
+plot(dt, margin = .1, main="Arbre de Régression pour classe de guérison sur RTUPB")
+text(dt, use.n = TRUE)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour classe de guérison sur RTUPB")
+summary(dt)
+predict(dt, testRTUPBclass)
+resClass_RTUPB<-predict(dt, testRTUPBclass)
+corrplot::corrplot(t(resClass_RTUPB),is.corr=TRUE, cl.pos = 'n', title="Prédiction classe de guérison pour échantillon de test RTUPB")
+table(validation = testRTUPBclass$postRTUPB_class, prediction =  predict(dt, testRTUPBclass, type="class"))
+          # prediction
+# validation 1 2 3 4
+         # 1 3 2 0 0
+         # 2 0 2 0 0
+         # 4 1 0 0 0
+rf<-randomForest(as.factor(postRTUPB_class) ~ ., data = trainRTUPBclass)
+table(validation = testRTUPBclass$postRTUPB_class, prediction =  predict(rf, testRTUPBclass))
+          # prediction
+# validation 1 2 3 4
+         # 1 5 0 0 0
+         # 2 0 2 0 0
+         # 4 0 0 0 1

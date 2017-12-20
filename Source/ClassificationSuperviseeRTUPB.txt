@@ -1,0 +1,92 @@
+# **********************************
+# Classification supervisée RTUPB
+# **********************************
+library(readxl)
+rawRTUPBSVPPBS <- read_excel("RTUPB-VBPPS.xlsx", col_types = c("text", 
+    "numeric", "logical", "numeric", "logical", 
+    "numeric", "numeric", "numeric", "numeric", 
+    "numeric", "numeric", "numeric", "numeric", 
+    "logical", "numeric", "logical", "numeric", 
+    "numeric", "numeric", "logical", "logical", 
+    "numeric", "numeric", "numeric", "numeric", 
+    "numeric", "numeric", "numeric", "numeric", 
+    "numeric", "numeric", "numeric", "numeric", 
+    "numeric", "numeric", "numeric", "numeric", 
+    "numeric", "numeric", "numeric", "numeric", 
+    "numeric"), skip = 1)
+library(rpart)
+library(rpart.plot)
+library(corrplot)
+library(randomForest)
+setIPSS<-subset(rawRTUPBSVPPBS,grepl("RTUPB", technique), select = c(1:21,34))[,-c(1,11,14,15,16,21)]
+# Substitution des espaces non supportes par randomForest
+colnames(setIPSS)<-make.names(colnames(setIPSS))
+# 80% of rows -> training set
+ns<-floor(0.80*nrow(setIPSS))
+# shuffle rows
+set.seed(2017)
+shuffle<-setIPSS[sample(nrow(setIPSS)),]
+trainIPSS<-shuffle[1:ns,]
+testIPSS<-shuffle[-c(1:ns),]
+dt<-rpart(IPSS__4 ~. , data = trainIPSS, method="class")
+plot(dt, margin = .1, main="Arbre de Régression pour IPSS à 12 mois sur RTUPB")
+text(dt, use.n = TRUE)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour IPSS à 12 mois sur RTUPB")
+summary(dt)
+predict(dt, testIPSS)
+resIPSS_RTUPB<-predict(dt, testIPSS)
+corrplot::corrplot(t(resIPSS_RTUPB),is.corr=TRUE, cl.pos = 'n', title="Prédiction IPSS pour échantillon de test RTUPB")
+table(validation = testIPSS$IPSS__4, prediction =  predict(dt, testIPSS, type="class"))
+           # prediction
+# validation 1 2 3 4
+         # 1 0 2 0 0
+         # 2 0 6 0 0
+rf<-randomForest(as.factor(IPSS__4) ~ ., data = trainIPSS)
+table(validation = testIPSS$IPSS__4, prediction =  predict(rf, testIPSS))
+           # prediction
+# validation 1 2 3 4
+         # 1 1 1 0 0
+         # 2 0 4 1 1
+setQoL<-subset(rawRTUPBSVPPBS,grepl("RTUPB", technique), select = c(1:21,35))[,-c(1,11,14,15,16,21)]
+set.seed(2017)
+# Substitution des espaces non supportes par randomForest
+colnames(setQoL)<-make.names(colnames(setQoL))
+shuffle<-setQoL[sample(nrow(setQoL)),]
+trainQoL<-shuffle[1:ns,]
+testQoL<-shuffle[-c(1:ns),]
+dt<-rpart(QoL__4 ~. , data = trainQoL, method="class")
+plot(dt, margin = .1, main="Arbre de Régression pour QoL à 12 mois sur RTUPB")
+text(dt, use.n = TRUE)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour QoL à 12 mois sur RTUPB")
+summary(dt)
+resQoL_RTUPB<-predict(dt, testQoL)
+corrplot::corrplot(t(resQoL_RTUPB),is.corr=TRUE, cl.pos = 'n', title="Prédiction QoL pour échantillon de test RTUPB")
+barplot( testQoL$QoL__4, names.arg = rownames(testQoL), main='Vérification QoL pour  échantillon de test RTUPB' )
+table(validation = testQoL$QoL__4, prediction =  predict(dt, testQoL, type="class"))
+           # prediction
+# validation 0 1 2
+         # 0 0 2 1
+         # 1 0 0 1
+         # 2 0 0 4
+rf<-randomForest(as.factor(QoL__4) ~ ., data = trainQoL)
+table(validation = testQoL$QoL__4, prediction =  predict(rf, testQoL))
+          # prediction
+# validation 0 1 2
+         # 0 1 1 1
+         # 1 0 1 0
+         # 2 0 0 4
+##################
+setQmax<-subset(rawRTUPBSVPPBS,grepl("RTUPB", technique), select = c(1:21,36))[,-c(1,11,14,15,16,21)]
+# Substitution des espaces non supportes par randomForest
+colnames(setQmax)<-make.names(colnames(setQmax))
+set.seed(2017)
+shuffle<-setQmax[sample(nrow(setQmax)),]
+trainQmax<-shuffle[1:ns,]
+testQmax<-shuffle[-c(1:ns),]
+dt<-rpart(`Qmax..ml.s.__3` ~. , data = trainQmax)
+plot(dt, margin = .1, main="Arbre de Régression pour Qmax à 12 mois sur RTUPB")
+text(dt, use.n = TRUE)
+resQmax_RTUPB<-predict(dt, testQmax)
+barplot( rbind(resQmax_RTUPB, testQmax$`Qmax..ml.s.__3`), beside=TRUE, names.arg = rownames(testQmax), main='Vérification Qmax pour  échantillon de test RTUPB' )
+rf<-randomForest(Qmax..ml.s.__3 ~ ., data = trainQmax)
+barplot( rbind(predict(rf, testQmax), testQmax$Qmax..ml.s.__3), beside=TRUE, names.arg = rownames(testQmax), main='Vérification Qmax (RandomForest) pour  échantillon de test RTUPB' )
