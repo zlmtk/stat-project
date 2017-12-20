@@ -17,8 +17,7 @@ nous indique une valeur maximale pour un nombre de classes à k = 2 (Cf. figure~
 Cependant, si nous regardons le détail des classes et de leurs silhouettes pour k = 2 (Cf. figure~\ref{fig-rtupb-post-pam-k2}),
 nous avons une première classe incluant la quasi totalité des patients dont 2 qui ont un profil post-opératoire non relié (valeurs de silhouette négatives), et une deuxième classe ne contenant que trois patients (11, 28 et 33)
 avec une valeur de silhouette à 1, indiquant des données répliquées exactement et donc une classe triviale.
-Après vérification que ces patients ont des données post-opératoires identiques, mais ne sont pas pour autant
-des doublons (données pré-opératoires différentes), nous poursuivons la recherche jusqu'au maximum suivant qui se trouve à k = 3 (Cf. figure~\ref{fig-rtupb-post-elbow}).
+Après vérification, nous constatons que ces patients ont des données post-opératoires identiques, mais ne sont pas pour autant des doublons (données pré-opératoires différentes). Nous poursuivons la recherche jusqu'au maximum suivant qui se trouve à k = 3 (Cf. figure~\ref{fig-rtupb-post-elbow}).
 
 \begin{figure}[H]
 \centering
@@ -37,7 +36,7 @@ mais dont les données post-opératoires sont identiques. Nous poursuivons encor
 \label{fig-rtupb-post-pam-k3}
 \end{figure}
 
-Le partitionnement à 13 classes permet d'identifier 10 classes de profils post-opératoires bien voire très bien classés: 3 dont la silhouette vaut 1, 5 dont la silhouette est comprise entre 0.75 et 1, et 2 dont la silhouette
+Le partitionnement à 13 classes permet d'identifier 10 classes de profils post-opératoires bien, voire très bien classés: 3 dont la silhouette vaut 1, 5 dont la silhouette est comprise entre 0.75 et 1, et 2 dont la silhouette
 est aux alentours de 0.6). Ce partitionnement fait cependant apparaître 2 classes de profils post-opératoires pas très bien classés (silhouette < 0.5) et une classe singleton (silhouette = 0). 
 
 \begin{figure}[H]
