@@ -81,7 +81,7 @@ validation 0 1 2 3
 \end{lstlisting}
 Soit un taux d'erreur de 25\%.
 
-Afin d'améliorer ce taux d'erreur de prédiction, Nous utilisons une forêt aléatoire d'arbres de régression. Nous obtenons alors une nouvelle table de correspondance:
+Afin d'améliorer ce taux d'erreur de prédiction, Nous utilisons une forêt aléatoire d'arbres de régression. Nous obtenons alors une nouvelle table de correspondance~:
 
 \begin{lstlisting}[language=R]
 > table(validation = testQoL$QoL__4, prediction =  predict(rf, testQoL))

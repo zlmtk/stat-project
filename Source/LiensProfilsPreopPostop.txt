@@ -1,0 +1,29 @@
+#
+# Resultats preOP (pour sortir le diagramme histogramme)
+#
+preRTUPB<-subset(rawRTUPBSVPPBS, grepl("RTUPB", technique), select = c(1:21))[,-c(1,11,14,15,16,21)]
+preVPPBS<-subset(rawRTUPBSVPPBS, grepl("VBPPS", technique), select = c(1:21))[,-c(1,5,11,14,15,16,18,20,21)]
+respam_preRTUPB<-cluster::pam(preRTUPB, 12)
+preRTUPB_class<-respam_preRTUPB$clustering
+respam_preVPPBS<-cluster::pam(preVPPBS, 12)
+preVPPBS_class<-respam_preVPPBS$clustering
+#
+# Resultats postOP (pour sortir le diagramme histogramme)
+#
+respam_postRTUPB<-cluster::pam(postRTUPB, 4)
+postRTUPB_class<-respam_postRTUPB$clustering
+respam_postVPPBS<-cluster::pam(postVPPBS, 5)
+postVPPBS_class<-respam_postVPPBS$clustering
+#
+# histogramme en triant les profils post-op, puis pre-op
+boundRTUPB<-arrange(as.data.frame(cbind(preRTUPB_class,postRTUPB_class)), postRTUPB_class, preRTUPB_class)
+barplot(t(boundRTUPB), col=c("darkblue","red"), beside=TRUE, xlab="Patients", ylab="Class ID", legend=TRUE, args.legend = list(x = "top"), ylim = c(0,13))
+# histogramme en triant les profils pre-op, puis post-op
+boundRTUPB2<-arrange(as.data.frame(cbind(preRTUPB_class,postRTUPB_class)), preRTUPB_class, postRTUPB_class)
+barplot(t(boundRTUPB2), col=c("darkblue","red"), beside=TRUE, xlab="Patients", ylab="Class ID",legend=TRUE, args.legend = list(x = "top"), ylim = c(0,13))
+# histogramme en triant les profils post-op, puis pre-op
+boundVPPBS<-arrange(as.data.frame(cbind(preVPPBS_class,postVPPBS_class)), postVPPBS_class, preVPPBS_class)
+barplot(t(boundVPPBS), col=c("darkblue","red"), beside=TRUE, xlab="Patients", ylab="Class ID", legend=TRUE, args.legend = list(x = "top"), ylim = c(0,13))
+# histogramme en triant les profils pre-op, puis post-op
+boundVPPBS2<-arrange(as.data.frame(cbind(preVPPBS_class,postVPPBS_class)), preVPPBS_class, postVPPBS_class)
+barplot(t(boundVPPBS2), col=c("darkblue","red"), beside=TRUE, xlab="Patients", ylab="Class ID",legend=TRUE, args.legend = list(x = "top"), ylim = c(0,13))
