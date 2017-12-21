@@ -45,13 +45,12 @@ les plus probables) sont correctes pour tous les patients à l'exception des pat
 Nous obtenons la table de correspondance suivante, entre valeurs de référence et valeurs de prédiction:
 
 \begin{lstlisting}[language=R]
-> table(validation = testIPSS$IPSS__4, prediction =  predict(dt, testIPSS, type="class"))
           prediction
 validation 1 2 3 4
          1 0 2 0 0
          2 0 5 1 0
 \end{lstlisting}
-Soit un taux d'erreur de 37.5\%.
+Soit un taux d'erreur de 37,5\%.
 
 \begin{figure}[H]
 \centering
@@ -70,13 +69,12 @@ Soit un taux d'erreur de 37.5\%.
 
 En utilisant une forêt aléatoire d'arbres de régression, nous obtenons une nouvelle table de correspondance:
 \begin{lstlisting}[language=R]
-> table(validation = testIPSS$IPSS__4, prediction =  predict(rf, testIPSS))
-           # prediction
-# validation 1 2 3 4
-         # 1 1 1 0 0
-         # 2 0 4 1 1
+           prediction
+validation 1 2 3 4
+         1 1 1 0 0
+         2 0 4 1 1
 \end{lstlisting}
-Soit un taux d'erreur de 37,5\%. Si toutefois une marge d'erreur de prédiction d'un point est acceptable sur l'indice IPSS (hypothèse à valider par un avis médical), le taux d'erreur serait alors ramené à 12,5\%.
+Soit un taux d'erreur de 37,5\%. Sous réserve qu'une marge d'erreur de prédiction d'un point est acceptable sur l'indice IPSS (hypothèse à valider par un avis médical), le taux d'erreur serait alors ramené à 12,5\%.
 
 \subsubsection{RTUPB: QoL à 12 mois}
 
@@ -122,7 +120,6 @@ Nous vérifions l'amélioration apportée par chaque embranchement de cet arbre 
 En appliquant cet arbre sur l'ensemble de tests, nous obtenons pour chaque patient une table de probabilités (figure~\ref{fig-rtupb-regtree-predict-qol12}) pour chacune des valeurs QoL 0/1/2. On peut alors comparer les prédictions (les valeurs les plus probables) avec les valeurs de référence (figure~\ref{fig-rtupb-regtree-test-qol12}). Celles-ci sont correctes pour 4 patients sur 8, et incorrectes pour les 4 autres (20, 29, 5 et 21). Nous obtenons la table de correspondance suivante, entre valeurs de référence et valeurs de prédiction:
 
 \begin{lstlisting}[language=R]
-> table(validation = testQoL$QoL__4, prediction =  predict(dt, testQoL, type="class"))
            prediction
 validation 0 1 2
          0 0 2 1
@@ -134,14 +131,13 @@ Soit un taux d'erreur de 37,5\%.
 Afin d'améliorer les résultats de prédiction, il nous faudrait répéter l'opération et utiliser une forêt d'arbres de régression. La prédiction utilisée sera alors la prédiction moyenne de l'ensemble des arbres de la forêt. Nous obtenons alors une nouvelle table de correspondance:
 
 \begin{lstlisting}[language=R]
-> table(validation = testQoL$QoL__4, prediction =  predict(rf, testQoL))
           prediction
 validation 0 1 2
          0 1 1 1
          1 0 1 0
          2 0 0 4
 \end{lstlisting}
-Soit un taux d'erreur moindre, de 25%
+Soit un taux d'erreur moindre~: 25\%.
 
 
 \subsubsection{RTUPB: Qmax à 12 mois}

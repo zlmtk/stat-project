@@ -8,8 +8,6 @@
 %
 %###############################################
 
-\subsubsection{RTUPB: prévision du profil de guérison}
-
 Nous utilisons ici la même méthode pour inférer arbres de régression et forêt aléatoire que lors de l'étude de prévision IPSS à 12 mois. A partir de l'arbre de régression complet obtenu sur l'échantilon d'apprentissage, la courbe évaluant le gain à chaque embranchement de l'arbre, figure~\ref{fig-rtupb-regtree-optim-healing-class} est quasi linéaire. Nous conservons donc cet arbre tel quel, sans élagage (figure~\ref{fig-rtupb-regtree-healing-class}.
 
 \begin{figure}[H]
@@ -38,7 +36,6 @@ En appliquant l'arbre de régression sur l'échantillon de validation, nous obte
 En comparant plus objectivement les prédictions avec les profils effectifs des patients de l'ensemble de validation, nous constatons, ci-dessous, un taux d'erreur de 12,5\%.
 
 \begin{lstlisting}[language=R]
-> table(validation = testRTUPBclass$postRTUPB_class, prediction =  predict(dt, testRTUPBclass, type="class"))
           prediction
 validation 1 2 3 4
          1 5 0 0 0
@@ -49,7 +46,6 @@ validation 1 2 3 4
 En utilisant une forêt aléatoire construite sur l'ensemble d'apprentissage, nous constatons alors, ci-dessous, un taux d'erreur de 0\%. La classification des profils pré-opératoires, s'avère donc fiable pour recommander une indication d'opération RTUPB et le profil de guérison associé.
 
 \begin{lstlisting}[language=R]
-> table(validation = testRTUPBclass$postRTUPB_class, prediction =  predict(rf, testRTUPBclass))
           prediction
 validation 1 2 3 4
          1 5 0 0 0

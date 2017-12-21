@@ -30,7 +30,6 @@ En appliquant cet arbre de régression sur l'ensemble de validation, nous obteno
 
 La table de correspondance suivant nous permet d'évaluer ces résultats~:
 \begin{lstlisting}[language=R]
-> table(validation = testIPSS$IPSS__4, prediction =  predict(dt, testIPSS, type="class"))
           prediction
 validation 1 2 3 4 6 14
         1  1 1 0 0 0  0
@@ -44,7 +43,6 @@ Soit un taux d'erreur de 62,5\%.
 En utilisant une forêt aléatoire, plutôt qu'un unique arbre de régression, nous obtenons alors une
 prédiction avec un taux d'erreur moindre, comme le montre cette nouvelle table de correspondance~:
 \begin{lstlisting}[language=R]
-> table(validation = testIPSS$IPSS__4, prediction =  predict(rf, testIPSS))
           prediction
 validation 1 2 3 4 6 14
         1  2 0 0 0 0  0
@@ -72,7 +70,6 @@ Soit un taux d'erreur de 50\%.
 \end{figure}
 
 \begin{lstlisting}[language=R]
-> table(validation = testQoL$QoL__4, prediction =  predict(dt, testQoL, type="class"))
           prediction
 validation 0 1 2 3
          0 0 1 0 0
@@ -84,7 +81,6 @@ Soit un taux d'erreur de 25\%.
 Afin d'améliorer ce taux d'erreur de prédiction, Nous utilisons une forêt aléatoire d'arbres de régression. Nous obtenons alors une nouvelle table de correspondance~:
 
 \begin{lstlisting}[language=R]
-> table(validation = testQoL$QoL__4, prediction =  predict(rf, testQoL))
           prediction
 validation 0 1 2 3
          0 0 1 0 0
