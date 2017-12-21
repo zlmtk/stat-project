@@ -8,7 +8,7 @@
 %
 %###############################################
 
-Comme pour les exercices précédents, nous évaluons l'efficacité des embranchements de l'arbre de régression complet. La figure~\ref{fig-vppbs-regtree-optim-healing-class} montre un point d'inflexion pour cp=0,13. L'arbre élagué sur ce critère, est représenté figure~\ref{fig-vppbs-regtree-ipss12}.
+Comme pour les exercices précédents, nous évaluons l'efficacité des embranchements de l'arbre de régression complet. La figure~\ref{fig-vppbs-regtree-optim-healing-class} montre un point d'inflexion pour cp=0,13. L'arbre élagué sur ce critère, est représenté figure~\ref{fig-vppbs-regtree-healing-class}.
 
 \begin{figure}[H]
 \centering
@@ -21,7 +21,7 @@ Comme pour les exercices précédents, nous évaluons l'efficacité des embranch
 \centering
 \includegraphics[width=0.75\textwidth]{../Fig/VPPBS/vppbs-regtree-healing-class.png}
 \caption{VPPBS: Arbre de régression pour profil de guérison}
-\label{fig-vppbs-regtree-ipss12}
+\label{fig-vppbs-regtree-healing-class}
 \end{figure}
 
 En appliquant l'arbre de régression sur l'échantillon de validation, nous obtenons des prévisions soit plutôt sûres (probabilités très fortes pour 3 patients sur 7), soit mitigées, comme illustré figure~\ref{fig-vppbs-predict-healing-class}.
@@ -30,7 +30,7 @@ En appliquant l'arbre de régression sur l'échantillon de validation, nous obte
 \centering
 \includegraphics[width=0.75\textwidth]{../Fig/VPPBS/vppbs-predict-healing-class.png}
 \caption{VPPBS: Prédiction du profil de guérison}
-\label{fig-vppbs-regtree-predict-ipss12}
+\label{fig-vppbs-regtree-predict-healing-class}
 \end{figure}
 
 \begin{lstlisting}[language=R]
