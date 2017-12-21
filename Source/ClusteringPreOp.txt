@@ -1,0 +1,239 @@
+
+######################################################################
+# CAH and PAM
+######################################################################
+
+# Certains individus sont dupliqués ? 
+preRTUPBcleanNoDuplicated<-preRTUPBclean[!duplicated(preRTUPBclean),]
+
+
+# PAM 
+# ---------------------------------------------------------------------
+preRTUPBclean.pam <-cluster::pam(preRTUPBclean,9)
+# récupération de la moyenne des 
+preRTUPBclean.pam$silinfo$avg.width
+
+# Recherche k optimum 
+
+# Peut être joué avec 
+ # preRTUPBclean et preRTUPBcleanNoDuplicated
+result<-NULL 
+for(va in 2:20){  
+    x<-cluster::pam(preRTUPBclean,va)
+    result[va] <- x$silinfo$avg.width } 
+plot (result, xlab = "Nombre de clusters", ylab = "Moyenne silhouette")
+abline (v=12,col="blue") 
+
+
+# Comme hypothese nous avons k=12 pour rtpb preop 
+# ---------------------------------------------------------------------
+
+preRTUPBclean.pam.k12<-cluster::pam(preRTUPBclean,12)
+
+factoextra::fviz_cluster(preRTUPBclean.pam.k12, geom =c("point","text"), pointsize = 5, elipse=TRUE) 
+Medoids( 1,2,3,4,5,6,7,8,9,10,11,12 ) 
+
+# On map la tableau avec pour chaque rows un numeros de cluster trouvé dans PAM 
+clusterResultPam.k12 <- cbind(preRTUPBclean, clusterNum = preRTUPBclean.pam.k12$clustering) 
+# Nous avons 12 clusters 
+cluster1Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 1 )
+cluster2Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 2 )
+cluster3Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 3 )
+cluster4Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 4 )
+cluster5Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 5 )
+cluster6Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 6 )
+cluster7Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 7 )
+cluster8Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 8 )
+cluster9Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 9 )
+cluster10Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 10 )
+cluster11Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 11 )
+cluster12Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 12 )
+
+
+boxplot(postRTUPB[rownames(cluster1Pam.k12),15],
+         postRTUPB[rownames(cluster2Pam.k12),15],
+         postRTUPB[rownames(cluster3Pam.k12),15],
+        postRTUPB[rownames(cluster4Pam.k12),15],
+        postRTUPB[rownames(cluster5Pam.k12),15],
+        postRTUPB[rownames(cluster6Pam.k12),15],
+        postRTUPB[rownames(cluster7Pam.k12),15],
+        postRTUPB[rownames(cluster8Pam.k12),15],
+        postRTUPB[rownames(cluster9Pam.k12),15],
+        postRTUPB[rownames(cluster10Pam.k12),15], 
+	postRTUPB[rownames(cluster11Pam.k12),15], 
+        postRTUPB[rownames(cluster12Pam.k12),15], col="#ABC8E2", ylim = c(0,50), names= c('1','2','3','4','5','6','7','8','9','10','11','12'))
+
+# ---------------------------------------------------------------------
+# CAH 
+# Reprise des données preRTUPBclean et création des distances (pair à pair) 
+
+preRTUPBEuclideanDist <- dist(preRTUPBclean)
+preRTUPBEuclideanDist.hclust <-hclust(preRTUPBEuclideanDist)
+plot(preRTUPBEuclideanDist.hclust)
+# Entourage des groupes sur k=12
+rect.hclust(preRTUPBEuclideanDist.hclust,12)
+
+
+#####################################################################
+# VPPBS
+#####################################################################
+
+rawVPBBS<-read.table("bases/VBPPS.csv", header=TRUE, sep=";", dec=".", skip = 1)
+preVPBBS <- rawVPBBS[,0:21] 
+preVPBBSclean <- preVPBBS[,-c(1,5,11,14,15,16,18,20,21)] 
+corpreVPPBSclean <-cor(preVPPBSclean) 
+corrplot::corrplot(corpreVPPBSclean) 
+postVPBBS<-rawVPBBS[,22:42]
+hist(preVPBBSclean$Age..ans,br = c(55,60,65,70,75,80,85,90) , col="#ABC8E2", main = "Distribution de l'age des patients sur 7 classes" , xlab = "Ages") 
+
+
+v<-postVPBBS
+boxplot(v$IPSS,v$IPSS.1,v$IPSS.2,v$IPSS.3 ,v$IPSS.4 ,v$IPSS.5,v$IPSS.6 , col="#ABC8E2",main = "Distribution pour la variable IPSS sur 18 mois", names = names ) 
+boxplot(v$QoL,v$QoL.1,v$QoL.2,v$QoL.3 ,v$QoL.4 ,v$QoL.5,v$QoL.6 , col="#ABC8E2",main = "Distribution pour la variable Qol sur 18 mois", names = names ) 
+boxplot(v$Qmax..ml.s.,v$Qmax.ml.s.,v$Qmax..ml.s..1,v$Qmax..ml.s..2 ,v$Qmax..ml.s..3 ,v$Qmax..ml.s..4,v$Qmax..ml.s..5 , col="#ABC8E2",main = "Distribution pour la variable Qmax sur 18 mois", names = names ) 
+
+#######################################################################
+# CAH and PAM
+#######################################################################
+
+preVPBBSCleanNoDuplicated<-preVPBBSClean[!duplicated(preVPBBSClean),]
+
+preVPBBSEuclideanDist <- dist(preVPBBScleanNoDuplicated)
+preVPBBSEuclideanDist.hclust <-hclust(preVPBBSEuclideanDist)
+plot(preVPBBSEuclideanDist.hclust)
+rect.hclust(preRTUPBEuclideanDist.hclust,11)
+
+# PAM 
+# ---------------------------------------------------------------------
+ result<-NULL 
+ for(vx in 2:19){ 
+         x<-cluster::pam(preVPBBSclean,vx)
+         result[vx] <- x$silinfo$avg.width } 
+
+ plot (result, xlab = "Nombre de clusters", ylab = "Moyenne silhouette")
+ abline (v=12,col="blue") 
+
+
+# Comme hypothese nous avons k=12 pour rtpb preop 
+# ---------------------------------------------------------------------
+preVPBBSclean.pam.k12<-cluster::pam(preVPBBSclean,12)
+factoextra::fviz_cluster(preVPBBSclean.pam.k12, geom =c("point","text"), pointsize = 5, elipse=TRUE) 
+Medoids (27,2,29,4,31,32,21,22,23,24,25,26) 
+
+clusterResultPam.k12 <- cbind(preVPBBSclean, clusterNum = preVPBBSclean.pam.k12$clustering) 
+cluster1Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 1 )
+cluster2Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 2 )
+cluster3Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 3 )
+cluster4Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 4 )
+cluster5Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 5 )
+cluster6Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 6 )
+cluster7Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 7 )
+cluster8Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 8 )
+cluster9Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 9 )
+cluster10Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 10 )
+cluster11Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 11 )
+cluster12Pam.k12 <- subset(clusterResultPam.k12,clusterNum == 12 )
+
+boxplot(postVPBBS[rownames(cluster1Pam.k12),15],
+         postVPBBS[rownames(cluster2Pam.k12),15],
+         postVPBBS[rownames(cluster3Pam.k12),15],
+        postVPBBS[rownames(cluster4Pam.k12),15],
+        postVPBBS[rownames(cluster5Pam.k12),15],
+        postVPBBS[rownames(cluster6Pam.k12),15],
+        postVPBBS[rownames(cluster7Pam.k12),15],
+        postVPBBS[rownames(cluster8Pam.k12),15],
+        postVPBBS[rownames(cluster9Pam.k12),15],
+        postVPBBS[rownames(cluster10Pam.k12),15], 
+	postVPBBS[rownames(cluster11Pam.k12),15], 
+        postVPBBS[rownames(cluster12Pam.k12),15], col="#ABC8E2", ylim = c(0,50), names= c('1','2','3','4','5','6','7','8','9','10','11','12') )
+
+
+preVPBBSEuclideanDist <- dist(preVPBBSclean)
+preVPBBSEuclideanDist.hclust <-hclust(preVPBBSEuclideanDist)
+plot(preVPBBSEuclideanDist.hclust)
+rect.hclust(preVPBBSEuclideanDist.hclust,12)
+
+
+#####################################################################
+# VAPOR
+#####################################################################
+
+rawVAPOR<-read.table("bases/VAPOR.csv", header=TRUE, sep=";", dec=".", skip = 1)
+preVAPOR <- rawVAPOR[,0:21] 
+preVAPORclean <- preVAPOR[,-c(1,5,11,15)] 
+hist(preVAPORclean$Age..ans,br = c(55,60,65,70,75,80,85,90) , col="#ABC8E2", main = "Distribution de l'age des patients sur 7 classes" , xlab = "Ages") 
+
+corpreVAPORclean <-cor(preVAPORclean) 
+corrplot::corrplot(corpreVAPORclean) 
+
+postVAPOR<-rawVAPOR[,22:42]
+
+boxplot(postVAPOR$IPSS,postVAPOR$IPSS.1,postVAPOR$IPSS.2,postVAPOR$IPSS.3 ,postVAPOR$IPSS.4 ,postVAPOR$IPSS.5,postVAPOR$IPSS.6 , col="#ABC8E2",main = "Distribution pour la variable IPSS sur 18 mois", names = names ) 
+boxplot(postVAPOR$QoL,postVAPOR$QoL.1,postVAPOR$QoL.2,postVAPOR$QoL.3 ,postVAPOR$QoL.4 ,postVAPOR$QoL.5,postVAPOR$QoL.6 , col="#ABC8E2",main = "Distribution pour la variable Qol sur 18 mois", names = names ) 
+boxplot(postVAPOR$Qmax..ml.s.,postVAPOR$Qmax.ml.s.,postVAPOR$Qmax..ml.s..1,postVAPOR$Qmax..ml.s..2 ,postVAPOR$Qmax..ml.s..3 ,postVAPOR$Qmax..ml.s..4,postVAPOR$Qmax..ml.s..5 , col="#ABC8E2",main = "Distribution pour la variable Qmax sur 18 mois", names = names ) 
+
+
+# PAM 
+# ---------------------------------------------------------------------
+result<-NULL 
+for(vx in 2:25){ 
+    x<-cluster::pam(preVAPORclean,vx)
+    result[vx] <- x$silinfo$avg.width } 
+
+plot (result, xlab = "Nombre de clusters", ylab = "Moyenne silhouette")
+abline (v=17,col="blue")
+
+
+preVAPOREuclideanDist <- dist(preVAPORclean)
+preVAPOREuclideanDist.hclust <-hclust(preVAPOREuclideanDist)
+plot(preVAPOREuclideanDist.hclust)
+rect.hclust(preVAPOREuclideanDist.hclust,17)
+
+
+
+
+# Comme hypothese nous avons k=17 pour vapor preop 
+# ---------------------------------------------------------------------
+preVAPORclean.pam.k17<-cluster::pam(preVAPORclean,17)
+factoextra::fviz_cluster(preVAPORclean.pam.k17, geom =c("point","text"), pointsize = 5, elipse=TRUE) 
+Medoids () 
+
+clusterResultPam.k17 <- cbind(preVAPORclean, clusterNum = preVAPORclean.pam.k17$clustering) 
+cluster1Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 1 )
+cluster2Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 2 )
+cluster3Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 3 )
+cluster4Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 4 )
+cluster5Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 5 )
+cluster6Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 6 )
+cluster7Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 7 )
+cluster8Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 8 )
+cluster9Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 9 )
+cluster10Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 10 )
+cluster11Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 11 )
+cluster12Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 12 )
+cluster13Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 13 )
+cluster14Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 14)
+cluster15Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 15 )
+cluster16Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 16 )
+cluster17Pam.k17 <- subset(clusterResultPam.k17,clusterNum == 17 )
+
+boxplot(postVAPOR[rownames(cluster1Pam.k17),15],
+         postVAPOR[rownames(cluster2Pam.k17),15],
+         postVAPOR[rownames(cluster3Pam.k17),15],
+        postVAPOR[rownames(cluster4Pam.k17),15],
+        postVAPOR[rownames(cluster5Pam.k17),15],
+        postVAPOR[rownames(cluster6Pam.k17),15],
+        postVAPOR[rownames(cluster7Pam.k17),15],
+        postVAPOR[rownames(cluster8Pam.k17),15],
+        postVAPOR[rownames(cluster9Pam.k17),15],
+        postVAPOR[rownames(cluster10Pam.k17),15], 
+	postVAPOR[rownames(cluster11Pam.k17),15], 
+        postVAPOR[rownames(cluster12Pam.k17),15], 
+	postVAPOR[rownames(cluster13Pam.k17),15],
+  	postVAPOR[rownames(cluster14Pam.k17),15], 
+  	postVAPOR[rownames(cluster15Pam.k17),15], 
+  	postVAPOR[rownames(cluster16Pam.k17),15], 
+  	postVAPOR[rownames(cluster17Pam.k17),15], col="#ABC8E2", ylim = c(0,50), names= c('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17')) 
+
+# USEFUL 
+remove(list=ls(pattern="cluster*Pam*"))
