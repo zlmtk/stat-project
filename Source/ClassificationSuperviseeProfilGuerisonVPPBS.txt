@@ -17,22 +17,22 @@ set.seed(2017)
 shuffle<-setVPPBSclass[sample(nrow(setVPPBSclass)),]
 trainVPPBSclass<-shuffle[1:ns,]
 testVPPBSclass<-shuffle[-c(1:ns),]
-dt<-rpart(postVPPBS_class ~. , data = trainVPPBSclass, method="class")
-plot(dt, margin = .1, main="Arbre de Régression pour classe de guérison sur VPPBS")
-text(dt, use.n = TRUE)
-rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour classe de guérison sur VPPBS")
-summary(dt)
+fulldt<-rpart(postVPPBS_class ~. , data = trainVPPBSclass, method="class", control=rpart.control(minsplit=3,cp=0))
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression complet pour classe de guérison sur VPPBS")
+plot(fulldt$cptable, main="Optimisation de l'arbre")
+dt<-prune(fulldt,cp=0.13)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression élagué pour classe de guérison sur VPPBS")
 predict(dt, testVPPBSclass)
 resClass_VPPBS<-predict(dt, testVPPBSclass)
 corrplot::corrplot(t(resClass_VPPBS),is.corr=TRUE, cl.pos = 'n', title="Prédiction classe de guérison pour échantillon de test VPPBS")
 table(validation = testVPPBSclass$postVPPBS_class, prediction =  predict(dt, testVPPBSclass, type="class"))
           # prediction
 # validation 1 2 3 4 5
-         # 1 0 1 0 0 0
+         # 1 1 0 0 0 0
          # 2 0 0 0 1 0
-         # 3 0 1 0 0 0
+         # 3 0 0 1 0 0
          # 4 0 0 0 1 0
-         # 5 0 3 0 0 0
+         # 5 3 0 0 0 0
 rf<-randomForest(as.factor(postVPPBS_class) ~ ., data = trainVPPBSclass)
 table(validation = testVPPBSclass$postVPPBS_class, prediction =  predict(rf, testVPPBSclass))
            # prediction

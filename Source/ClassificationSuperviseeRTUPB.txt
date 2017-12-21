@@ -28,10 +28,11 @@ set.seed(2017)
 shuffle<-setIPSS[sample(nrow(setIPSS)),]
 trainIPSS<-shuffle[1:ns,]
 testIPSS<-shuffle[-c(1:ns),]
-dt<-rpart(IPSS__4 ~. , data = trainIPSS, method="class")
-plot(dt, margin = .1, main="Arbre de Régression pour IPSS à 12 mois sur RTUPB")
-text(dt, use.n = TRUE)
-rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour IPSS à 12 mois sur RTUPB")
+fulldt<-rpart(IPSS__4 ~. , data = trainIPSS, method="class", control=rpart.control(minsplit=3,cp=0))
+rpart.plot::rpart.plot(fulldt,type=0, extra=4, main="Arbre de Régression complet pour IPSS à 12 mois sur RTUPB")
+plot(fulldt$cptable)
+dt<-prune(fulldt,cp=0.13)
+rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression élagué pour IPSS à 12 mois sur RTUPB")
 summary(dt)
 predict(dt, testIPSS)
 resIPSS_RTUPB<-predict(dt, testIPSS)
@@ -54,9 +55,10 @@ colnames(setQoL)<-make.names(colnames(setQoL))
 shuffle<-setQoL[sample(nrow(setQoL)),]
 trainQoL<-shuffle[1:ns,]
 testQoL<-shuffle[-c(1:ns),]
-dt<-rpart(QoL__4 ~. , data = trainQoL, method="class")
-plot(dt, margin = .1, main="Arbre de Régression pour QoL à 12 mois sur RTUPB")
-text(dt, use.n = TRUE)
+fulldt<-rpart(QoL__4 ~. , data = trainQoL, method="class",control=rpart.control(minsplit=3,cp=0))
+rpart.plot::rpart.plot(fulldt,type=0, extra=4, main="Arbre de Régression complet pour QoL à 12 mois sur RTUPB")
+plot(fulldt$cptable, main="Optimisation de l'arbre")
+dt<-prune(fulldt,cp=0.15)
 rpart.plot::rpart.plot(dt,type=0, extra=4, main="Arbre de Régression pour QoL à 12 mois sur RTUPB")
 summary(dt)
 resQoL_RTUPB<-predict(dt, testQoL)
@@ -83,7 +85,10 @@ set.seed(2017)
 shuffle<-setQmax[sample(nrow(setQmax)),]
 trainQmax<-shuffle[1:ns,]
 testQmax<-shuffle[-c(1:ns),]
-dt<-rpart(`Qmax..ml.s.__3` ~. , data = trainQmax)
+fulldt<-rpart(`Qmax..ml.s.__3` ~. , data = trainQmax, method="class",control=rpart.control(minsplit=3,cp=0))
+fulldt<-rpart(`Qmax..ml.s.__3` ~. , data = trainQmax)
+plot(fulldt$cptable, main="Optimisation de l'arbre")
+dt<-prune(fulldt,cp=0.08)
 plot(dt, margin = .1, main="Arbre de Régression pour Qmax à 12 mois sur RTUPB")
 text(dt, use.n = TRUE)
 resQmax_RTUPB<-predict(dt, testQmax)
