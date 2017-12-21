@@ -1,0 +1,81 @@
+#####################################################################
+# RTUBP
+#####################################################################
+
+# pre traitement des données
+# ------------------------------------------
+# chargement des données preopératoire 
+rawRTUPBSVPPBS <- read_excel("bases/RTUPB-VBPPS.xlsx", 
+
+    col_types = c("text", "numeric", "logical", 
+
+        "numeric", "logical", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "logical", "numeric", 
+
+        "logical", "numeric", "numeric", 
+
+        "numeric", "logical", "logical", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric", 
+
+        "numeric", "numeric", "numeric"), 
+
+    skip = 1)
+rawRTUPB<-subset(rawRTUPBSVPPBS,grepl("RTUPB", technique))
+preRTUPB<-rawRTUPB[,0:21]
+
+# Suppression de certaines dimentions invariantes. 
+
+# Technique
+# Evenement H.D
+# Transfusion PerO
+# reprise au bloc
+
+# (A argumenter) pour la sup. 
+# --------------------------------
+# Porteur de sonde 
+# Résidu post mictionnel (ml)
+preRTUPBclean <- preRTUPB[,-c(1,5,11,14,15,16,21)] 
+
+
+# Creation d'un corrélogramme pour RTUPB
+# ---------------------------------------
+install.packages("corrplot")
+corpreRTUPBclean <-cor(preRTUPBclean) 
+corrplot::corrplot(corpreRTUPBclean) 
+# avec des niveau de correlation
+corrplot::corrplot(corpreRTUPBclean, method ="pie", type ="lower") 
+
+
+# Distribution des Ages des patients pour RTUPB 
+# -----------------------------------------------
+hist(preRTUPBclean$Age..ans,br = c(55,60,65,70,75,80,85,90) , col="#ABC8E2", main = "Distribution de l'age des patients sur 7 classes" , xlab = "Ages") 
+
+
+# REcupération des données post opératoire RUTPB
+# -------------------------------------------------
+postRTUPB<-rawRTUPB[,22:42]
+
+
+# Distribution sur la variable IPSS (18 mois) 
+# -----------------------------------------------
+boxplot(postRTUPB$IPSS,postRTUPB$IPSS.1,postRTUPB$IPSS.2,postRTUPB$IPSS.3,postRTUPB$IPSS.4,postRTUPB$IPSS.5,postRTUPB$IPSS.6,  col="#ABC8E2", ) 
+names <-c("1 Mois", "3 Mois","6 Mois","9 Mois","12  Mois","15 Mois","18 Mois")
+boxplot(postRTUPB$IPSS,postRTUPB$IPSS.1,postRTUPB$IPSS.2,postRTUPB$IPSS.3,postRTUPB$IPSS.4,postRTUPB$IPSS.5,postRTUPB$IPSS.6,  col="#ABC8E2",main = "Distribution pour la variable IPSS sur 18 mois (RTUPB)", names = names, ylim = c(0, 15) ) 
+boxplot(postRTUPB$QoL,postRTUPB$QoL.1,postRTUPB$QoL.2,postRTUPB$QoL.3,postRTUPB$QoL.4,postRTUPB$QoL.5,postRTUPB$QoL.6,  col="#ABC8E2",main = "Distribution pour la variable Qol sur 18 mois", names = names )
+boxplot(postRTUPB$Qmax..ml.s.,postRTUPB$Qmax..ml.s.1,postRTUPB$Qmax..ml.s.2,postRTUPB$Qmax..ml.s.3,postRTUPB$Qmax..ml.s.4,postRTUPB$Qmax..ml.s.5,postRTUPB$Qmax..ml.s.6,  col="#ABC8E2",main = "Distribution pour la variable QMax sur 18 mois", names = names ) 
