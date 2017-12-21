@@ -245,6 +245,12 @@ plot (result, xlab = "Nombre de clusters", ylab = "Moyenne silhouette")
 abline (v=17,col="blue")
 
 
+preVAPOREuclideanDist <- dist(preVAPORclean)
+preVAPOREuclideanDist.hclust <-hclust(preVAPOREuclideanDist)
+plot(preVAPOREuclideanDist.hclust)
+rect.hclust(preVAPOREuclideanDist.hclust,17)
+
+
 
 
 Comme hypothese nous avons k=17 pour vapor preop 
